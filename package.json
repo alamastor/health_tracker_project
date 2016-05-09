@@ -1,0 +1,24 @@
+{
+  "name": "health_tracker",
+  "version": "1.0.0",
+  "description": "A project using Backbone JS to track daily calorie intake.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alamastor/health_tracker_project.git"
+  },
+  "author": "Alistair McKelvie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alamastor/health_tracker_project/issues"
+  },
+  "homepage": "https://github.com/alamastor/health_tracker_project#readme",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "grunt": "^1.0.1",
+    "grunt-bower-requirejs": "^2.0.0"
+  }
+}
