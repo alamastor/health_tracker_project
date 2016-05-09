@@ -6,7 +6,8 @@ require.config({
     backbone: "../../bower_components/backbone/backbone",
     backbonefire: "../../bower_components/backbonefire/dist/backbonefire",
     requirejs: "../../bower_components/requirejs/require",
-    underscore: "../../bower_components/underscore/underscore"
+    underscore: "../../bower_components/underscore/underscore",
+    jquery: "../../bower_components/jquery/dist/jquery"
   },
   packages: [
 
