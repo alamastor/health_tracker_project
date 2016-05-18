@@ -3,12 +3,12 @@ require.config({
 
   },
   paths: {
-    backbone: "../../bower_components/backbone/backbone",
-    backbonefire: "../../bower_components/backbonefire/dist/backbonefire",
-    requirejs: "../../bower_components/requirejs/require",
-    underscore: "../../bower_components/underscore/underscore",
-    jquery: "../../bower_components/jquery/dist/jquery",
-    text: "../../bower_components/text/text"
+    backbone: "../../dist/bower_components/backbone/backbone",
+    backbonefire: "../../dist/bower_components/backbonefire/dist/backbonefire",
+    requirejs: "../../dist/bower_components/requirejs/require",
+    underscore: "../../dist/bower_components/underscore/underscore",
+    jquery: "../../dist/bower_components/jquery/dist/jquery",
+    text: "../../dist/bower_components/text/text"
   },
   packages: [
 

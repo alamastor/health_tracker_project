@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         clean: {
-            src: ['dist'],
+            build: ['dist/*', '!dist/bower_components'],
         },
         copy: {
             files: {
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         },
         bowerRequirejs: {
             target: {
-                rjsConfig: 'src/js/config.js'
+                rjsConfig: 'dist/js/config.js'
             }
         },
     });
