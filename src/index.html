@@ -6,7 +6,16 @@
   <meta charset="utf-8">
 </head>
 <body>
-  <div id="main"></div>
+  <div id="main">
+    <div class="search">
+      <form id="search-form" class="search-form">
+        <input id="search-input"t class="search-form__input" />
+        <button class="search-form_button">Submit</button>
+      </form>
+      <ul class="search__results" id="search-results">
+      </ul>
+    </div>
+  </div>
   <script data-main="js/app" src="../bower_components/requirejs/require.js"></script>
 </body>
 </html>

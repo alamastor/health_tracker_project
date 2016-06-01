@@ -1,16 +1,25 @@
 define(['backbone', 'jquery', 'tokens', '../collections/search_results'], function(Backbone, $, tokens, searchResults) {
     var AppView = Backbone.View.extend({
-        tagName: 'body',
+        el: 'body',
 
         template: _.template('<ul></ul>'),
 
-        initialize: function() {
-            this.listenTo(searchResults, 'add', this.addSearchResult);
-            this.render();
+        events: {
+            'submit #search-form': 'searchSubmit',
         },
 
-        render: function() {
-            this.$('#main').html('<ul></ul>');
+        initialize: function() {
+            this.$searchInput = this.$('#search-input');
+            this.$searchResults = this.$('#search-results');
+
+            this.listenTo(searchResults, 'add', this.addSearchResult);
+        },
+
+
+        searchSubmit: function(event) {
+            // Stop refresh after submit
+            event.preventDefault();
+            this.search(this.$searchInput.val());
         },
 
         search: function(searchText) {
@@ -40,9 +49,9 @@ define(['backbone', 'jquery', 'tokens', '../collections/search_results'], functi
             });
         },
 
-        addSearchResult: function() {
+        addSearchResult: function(result) {
             console.log('add search res');
-            $('ul').append('<li>123</li>');
+            this.$searchResults.append('<li>' + result.attributes.name + '</li>');
         },
     });
     return new AppView();
