@@ -5,6 +5,8 @@ define(['backbone', 'jquery'], function(Backbone, $) {
         template:  _.template(
             '<li>' +
                 '<p><%= name %></p>' +
+                '<p><%= brand %></p>' +
+                '<p><%= calories %></p>' +
             '</li>'
         ),
 

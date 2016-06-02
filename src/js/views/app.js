@@ -1,5 +1,5 @@
 define(['backbone', 'jquery', 'tokens', '../collections/search_results', './search_result'],
-        function(Backbone, $, tokens, searchResults, searchResultView) {
+        function(Backbone, $, tokens, searchResults, SearchResultView) {
     var AppView = Backbone.View.extend({
         el: 'body',
 
@@ -37,8 +37,12 @@ define(['backbone', 'jquery', 'tokens', '../collections/search_results', './sear
                 console.log(data);
                 console.log(textStatus);
                 console.log(jqXHR);
-                data.hits.forEach(function(res) {
-                    searchResults.create({name: res.fields.item_name});
+                data.hits.forEach(function(result) {
+                    searchResults.create({
+                        name: result.fields.item_name,
+                        brand: result.fields.brand_name,
+                        calories: result.fields.nf_calories,
+                    });
                 });
             }).fail(function(textStatus, jqXHR, errorThrown) {
                 console.log('search fail');
@@ -50,9 +54,9 @@ define(['backbone', 'jquery', 'tokens', '../collections/search_results', './sear
 
         addSearchResult: function(result) {
             console.log('add search res');
-            var view = new searchResultView({model: result});
+            var view = new SearchResultView({model: result});
             this.$searchResults.append(view.render().el);
         },
     });
-    return new AppView();
+    return AppView;
 });

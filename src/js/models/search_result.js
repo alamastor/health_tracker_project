@@ -1,7 +1,9 @@
 define(['backbone'], function(Backbone) {
     var searchResult = Backbone.Model.extend({
         defaults: {
-            name: 'food',
+            name: '',
+            brand: '',
+            calories: '',
         },
 
         sync: function(method, collection) {
