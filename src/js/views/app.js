@@ -1,8 +1,7 @@
-define(['backbone', 'jquery', 'tokens', '../collections/search_results'], function(Backbone, $, tokens, searchResults) {
+define(['backbone', 'jquery', 'tokens', '../collections/search_results', './search_result'],
+        function(Backbone, $, tokens, searchResults, searchResultView) {
     var AppView = Backbone.View.extend({
         el: 'body',
-
-        template: _.template('<ul></ul>'),
 
         events: {
             'submit #search-form': 'searchSubmit',
@@ -51,7 +50,8 @@ define(['backbone', 'jquery', 'tokens', '../collections/search_results'], functi
 
         addSearchResult: function(result) {
             console.log('add search res');
-            this.$searchResults.append('<li>' + result.attributes.name + '</li>');
+            var view = new searchResultView({model: result});
+            this.$searchResults.append(view.render().el);
         },
     });
     return new AppView();
