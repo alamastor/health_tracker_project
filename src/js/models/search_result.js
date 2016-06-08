@@ -1,15 +1,12 @@
-define(['backbone'], function(Backbone) {
-    var searchResult = Backbone.Model.extend({
-        defaults: {
-            name: '',
-            brand: '',
-            calories: '',
-        },
+var app = app || {};
+app.SearchResult = Backbone.Model.extend({
+    defaults: {
+        name: '',
+        brand: '',
+        calories: '',
+    },
 
-        sync: function(method, collection) {
-            console.log(method);
-            console.log(collection);
-        },
-    });
-    return searchResult;
+    sync: function(method, collection) {
+        // Overridden to prevent default writing to database.
+    },
 });

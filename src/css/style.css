@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+}
+
+.search {
+  width: 30%;
+  height: 100vh;
+}
+
+.search__results {
+  margin: 0;
+  height: calc(100% - 19px);
+  overflow-y: scroll;
+  list-style-type: none;
+}

@@ -11,15 +11,9 @@ module.exports = function(grunt) {
                 dest: 'dist',
             },
         },
-        bowerRequirejs: {
-            target: {
-                rjsConfig: 'dist/js/config.js'
-            }
-        },
     });
-    grunt.loadNpmTasks('grunt-bower-requirejs');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['clean', 'copy', 'bowerRequirejs']);
+    grunt.registerTask('default', ['clean', 'copy']);
 }

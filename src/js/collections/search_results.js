@@ -1,6 +1,5 @@
-define(['backbone', '../models/search_result'], function(Backbone, searchResult) {
-    var searchResults = Backbone.Collection.extend({
-        model: searchResult,
-    });
-    return new searchResults();
+var app = app || {};
+var SearchResults = Backbone.Collection.extend({
+    model: app.SearchResult,
 });
+app.searchResults = new SearchResults();
