@@ -15,6 +15,7 @@ module.exports = function(grunt) {
         webpack: {
             options: {
                 entry: './src/js/app.js',
+                debug: true,
                 output: {
                     path: 'dist/js',
                     filename: 'bundle.js',

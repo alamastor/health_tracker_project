@@ -15,7 +15,6 @@ var AppView = Backbone.View.extend({
         this.listenTo(searchResults, 'add', this.addSearchResult);
     },
 
-
     searchSubmit: function(event) {
         // Stop refresh after submit
         event.preventDefault();

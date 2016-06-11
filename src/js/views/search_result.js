@@ -21,10 +21,12 @@ var SearchResultView = Backbone.View.extend({
 
     select: function() {
         console.log(this.model);
+        var new_food = this.model.attributes;
+        new_food['date'] = new Date();
         foodHistory.add([
-            this.model.attributes,
+            new_food,
         ]);
-    }
-})
+    },
+});
 
 module.exports = SearchResultView;
