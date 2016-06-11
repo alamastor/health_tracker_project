@@ -1,5 +1,7 @@
-var app = app || {};
-app.AppView = Backbone.View.extend({
+var searchResults = require('../collections/search_results.js');
+var SearchResultView = require('./search_result.js');
+var tokens = require('../tokens.js');
+var AppView = Backbone.View.extend({
     el: 'body',
 
     events: {
@@ -10,7 +12,7 @@ app.AppView = Backbone.View.extend({
         this.$searchInput = this.$('#search-input');
         this.$searchResults = this.$('#search-results');
 
-        this.listenTo(app.searchResults, 'add', this.addSearchResult);
+        this.listenTo(searchResults, 'add', this.addSearchResult);
     },
 
 
@@ -28,8 +30,8 @@ app.AppView = Backbone.View.extend({
                     cal_min: '0',
                     cal_max: '50000',
                     fields: '*',
-                    appId: app.tokens.nutritionix.id,
-                    appKey: app.tokens.nutritionix.key,
+                    appId: tokens.nutritionix.id,
+                    appKey: tokens.nutritionix.key,
                 }
         }).done(function(data, textStatus, jqXHR) {
             console.log('search done');
@@ -37,7 +39,7 @@ app.AppView = Backbone.View.extend({
             console.log(textStatus);
             console.log(jqXHR);
             data.hits.forEach(function(result) {
-                app.searchResults.create({
+                searchResults.create({
                     name: result.fields.item_name,
                     brand: result.fields.brand_name,
                     calories: result.fields.nf_calories,
@@ -53,7 +55,9 @@ app.AppView = Backbone.View.extend({
 
     addSearchResult: function(result) {
         console.log('add search res');
-        var view = new app.SearchResultView({model: result});
+        var view = new SearchResultView({model: result});
         this.$searchResults.append(view.render().el);
     },
 });
+
+module.exports = AppView;

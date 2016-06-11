@@ -1,5 +1,5 @@
-var app = app || {};
-app.SearchResultView = Backbone.View.extend({
+var foodHistory = require('../collections/food_history');
+var SearchResultView = Backbone.View.extend({
     tagName: 'li',
 
     events: {
@@ -21,8 +21,10 @@ app.SearchResultView = Backbone.View.extend({
 
     select: function() {
         console.log(this.model);
-        app.foodHistory.add([
+        foodHistory.add([
             this.model.attributes,
         ]);
     }
 })
+
+module.exports = SearchResultView;

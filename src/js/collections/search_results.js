@@ -1,5 +1,6 @@
-var app = app || {};
+var SearchResult = require('../models/search_result.js');
 var SearchResults = Backbone.Collection.extend({
-    model: app.SearchResult,
+    model: SearchResult,
 });
-app.searchResults = new SearchResults();
+var searchResults = new SearchResults();
+module.exports = searchResults;

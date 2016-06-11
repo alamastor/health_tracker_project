@@ -1,5 +1,4 @@
-var app = app || {};
-app.SearchResult = Backbone.Model.extend({
+SearchResult = Backbone.Model.extend({
     defaults: {
         name: '',
         brand: '',
@@ -10,3 +9,5 @@ app.SearchResult = Backbone.Model.extend({
         // Overridden to prevent default writing to database.
     },
 });
+
+module.exports = SearchResult;

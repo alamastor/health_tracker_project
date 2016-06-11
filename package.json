@@ -18,9 +18,15 @@
   "homepage": "https://github.com/alamastor/health_tracker_project#readme",
   "devDependencies": {
     "bower": "^1.7.9",
+    "expose-loader": "^0.7.1",
     "grunt": "^1.0.1",
     "grunt-bower-requirejs": "^2.0.0",
     "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0"
-  }
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-webpack": "^1.0.11",
+    "imports-loader": "^0.6.5",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {}
 }

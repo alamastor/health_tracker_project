@@ -1,6 +1,8 @@
-var app = app || {}
+require('backbonefire');
+var Food = require('../models/Food.js');
 var FoodHistory = Backbone.Firebase.Collection.extend({
     url: 'https://udacity-heath-tracker.firebaseio.com/food_history',
-    model: app.Food,
+    model: Food,
 });
-app.foodHistory = new FoodHistory();
+var foodHistory = new FoodHistory();
+module.exports = foodHistory;
