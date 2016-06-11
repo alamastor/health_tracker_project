@@ -6,7 +6,7 @@ var SearchResultView = Backbone.View.extend({
         'click': 'select',
     },
 
-    template:  _.template(
+    template: _.template(
         '<li>' +
             '<p><%= name %></p>' +
             '<p><%= brand %></p>' +

@@ -8,6 +8,8 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
         console.log(response);
         return reponse;
     },
+
+    comparator: 'date',
 });
 var foodHistory = new FoodHistory({parse: true});
 module.exports = foodHistory;

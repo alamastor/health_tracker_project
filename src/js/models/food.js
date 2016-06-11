@@ -13,7 +13,7 @@ var Food = Backbone.Model.extend({
 
     toJSON: function() {
         var json = Backbone.Model.prototype.toJSON.call(this);
-        json.date = json.date.toString();
+        json.date = json.date.toISOString();
         return json;
     },
 });

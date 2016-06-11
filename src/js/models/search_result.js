@@ -1,4 +1,5 @@
-SearchResult = Backbone.Model.extend({
+'use strict';
+var SearchResult = Backbone.Model.extend({
     defaults: {
         name: '',
         brand: '',

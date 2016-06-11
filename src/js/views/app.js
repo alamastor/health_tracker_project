@@ -1,5 +1,8 @@
+'use strict';
 var searchResults = require('../collections/search_results.js');
 var SearchResultView = require('./search_result.js');
+var foodHistory = require('../collections/food_history.js');
+var DayView = require('./day.js');
 var tokens = require('../tokens.js');
 var AppView = Backbone.View.extend({
     el: 'body',
@@ -11,8 +14,10 @@ var AppView = Backbone.View.extend({
     initialize: function() {
         this.$searchInput = this.$('#search-input');
         this.$searchResults = this.$('#search-results');
+        this.$foodHistory = this.$('#food-history');
 
         this.listenTo(searchResults, 'add', this.addSearchResult);
+        this.listenTo(foodHistory, 'add remove reset', this.updateHistory);
     },
 
     searchSubmit: function(event) {
@@ -56,6 +61,39 @@ var AppView = Backbone.View.extend({
         console.log('add search res');
         var view = new SearchResultView({model: result});
         this.$searchResults.append(view.render().el);
+    },
+
+    updateHistory: function(foodHistory) {
+        console.log(foodHistory);
+        var self = this;
+        this.$foodHistory.empty();
+        foodHistory.collection.sort();
+        var prevDate = new Date(1990, 1, 1);
+        var days = [];
+        foodHistory.collection.forEach(function(food) {
+            console.log(food);
+            if (food.attributes.date !== '') {
+                var dateObj = new Date(food.attributes.date);
+                // Clear time, just leaving day
+                dateObj.setHours(0,0,0,0);
+                if (dateObj.valueOf() !== prevDate.valueOf()) {
+                    days.push({
+                        date: dateObj.toString(),
+                        foods: [food.attributes.name]
+                    });
+                } else {
+                    _.last(days).foods.push(food.attributes.name);
+                }
+                prevDate = dateObj;
+            }
+        });
+
+        days.forEach(function(day) {
+            var model = new Backbone.Model();
+            model.set(day);
+            var view = new DayView({model: model});
+            self.$foodHistory.append(view.render().el);
+        });
     },
 });
 
