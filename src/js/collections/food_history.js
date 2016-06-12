@@ -11,5 +11,5 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
 
     comparator: 'date',
 });
-var foodHistory = new FoodHistory({parse: true});
+var foodHistory = new FoodHistory();
 module.exports = foodHistory;

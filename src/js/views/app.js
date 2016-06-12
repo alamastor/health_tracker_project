@@ -15,9 +15,11 @@ var AppView = Backbone.View.extend({
         this.$searchInput = this.$('#search-input');
         this.$searchResults = this.$('#search-results');
         this.$foodHistory = this.$('#food-history');
+        this.$stats= this.$('#stats');
 
         this.listenTo(searchResults, 'add', this.addSearchResult);
         this.listenTo(foodHistory, 'add remove reset', this.updateHistory);
+        this.listenTo(foodHistory, 'add remove reset', this.updateStats);
     },
 
     searchSubmit: function(event) {
@@ -64,7 +66,6 @@ var AppView = Backbone.View.extend({
     },
 
     updateHistory: function(foodHistory) {
-        console.log(foodHistory);
         var self = this;
         this.$foodHistory.empty();
         foodHistory.collection.sort();
@@ -94,6 +95,22 @@ var AppView = Backbone.View.extend({
             var view = new DayView({model: model});
             self.$foodHistory.append(view.render().el);
         });
+    },
+
+    updateStats: function(foodHistory) {
+        var today = new Date().setHours(0,0,0,0);
+        var todayFoods = foodHistory.collection.filter(function(food) {
+            var date = new Date(food.attributes.date).setHours(0,0,0,0);
+            return date == today;
+        });
+
+        var totalCalories = 0;
+        todayFoods.forEach(function(food) {
+            totalCalories += food.get("calories");
+        });
+
+        var statsTemplate = require('../../templates/stats.html');
+        this.$stats.html(statsTemplate({calories: totalCalories}));
     },
 });
 

@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+    'use strict';
     var webpack = require('webpack');
     grunt.initConfig({
         clean: {
@@ -40,6 +41,7 @@ module.exports = function(grunt) {
                     loaders: [
                         {test: /underscore\.js$/, loader: 'expose?_'},
                         {test: /backbonefire\.js/, loader: 'imports?firebase'},
+                        {test: /\.html$/, loader: 'underscore-template-loader'},
                     ]
                 },
             },
