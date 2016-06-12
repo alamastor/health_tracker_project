@@ -1,0 +1,12 @@
+{
+    "devel": true,
+    "globalstrict": true,
+    "webpack": true,
+    "jquery": true,
+    "globals": {
+        "require": true,
+        "Backbone": true,
+        "_": true,
+        "module": true
+    }
+}
