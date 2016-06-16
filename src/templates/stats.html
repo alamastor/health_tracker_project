@@ -1,5 +1,9 @@
 <div id="today-calories" class="stats__today">
-  <span>Calories Today: <% print(Math.round(calories)) %> Cal</span>
+  <span>Calories Today: <% print(Math.round(todayCals)) %> Cal</span>
 </div>
-<div id="daily-calories" class="stats__daily">
+<div id="weekly-ave-calories" class="stats__week">
+  <span>This week's average: <% print(Math.round(weeklyAveCals)) %> Cal</span>
+</div>
+<div id="monthly-ave-calories" class="stats__month">
+  <span>This month's average: <% print(Math.round(monthlyAveCals)) %> Cal</span>
 </div>

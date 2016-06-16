@@ -4,6 +4,7 @@ var SearchResultView = require('./search_result.js');
 var foodHistory = require('../collections/food_history.js');
 var DayView = require('./day.js');
 var tokens = require('../tokens.js');
+var util = require('../util.js');
 var AppView = Backbone.View.extend({
     el: 'body',
 
@@ -98,20 +99,34 @@ var AppView = Backbone.View.extend({
     },
 
     updateStats: function(foodHistory) {
-        var today = new Date().setHours(0,0,0,0);
-        var todayFoods = foodHistory.collection.filter(function(food) {
-            var date = new Date(food.attributes.date).setHours(0,0,0,0);
-            return date == today;
+        var now = new Date();
+        var today = now.setHours(0,0,0,0);
+        var todayCalories = 0;
+        var thisWeekCalories = 0;
+        var thisMonthCalories = 0;
+        foodHistory.collection.forEach(function(food) {
+            var foodTime = new Date(food.get('date'));
+            if (foodTime.setHours(0,0,0,0) == today) {
+                todayCalories += food.get('calories');
+            }
+            if (util.isThisWeek(foodTime)) {
+                thisWeekCalories += food.get('calories');
+            }
+            if (foodTime.getMonth() == now.getMonth()) {
+                thisMonthCalories += food.get('calories');
+            }
         });
-
-        var totalCalories = 0;
-        todayFoods.forEach(function(food) {
-            totalCalories += food.get("calories");
-        });
+        var weeklyAve = thisWeekCalories / (now.getDay() + 1);
+        var monthlyAve = thisMonthCalories / (now.getDate());
 
         var statsTemplate = require('../../templates/stats.html');
-        this.$stats.html(statsTemplate({calories: totalCalories}));
+        this.$stats.html(statsTemplate({
+            todayCals: todayCalories,
+            weeklyAveCals: weeklyAve,
+            monthlyAveCals: monthlyAve,
+        }));
     },
+
 });
 
 module.exports = AppView;
