@@ -1,3 +1,4 @@
+'use strict';
 var SearchResult = require('../models/search_result.js');
 var SearchResults = Backbone.Collection.extend({
     model: SearchResult,
