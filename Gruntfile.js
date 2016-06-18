@@ -17,6 +17,7 @@ module.exports = function(grunt) {
             options: {
                 entry: './src/js/app.js',
                 debug: true,
+                devtool: 'source-map',
                 output: {
                     path: 'dist/js',
                     filename: 'bundle.js',
