@@ -12,7 +12,7 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
         var now = new Date();
         return this.chain()
             .filter(function(food) {
-                return new Date(food.get('date'));
+                return food.get('date');
             })
             .reduce(function(memo, food) {
                 return memo + food.get('calories');
@@ -23,7 +23,7 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
         var now = new Date();
         return this.chain()
             .filter(function(food) {
-                return util.isThisWeek(new Date(food.get('date')));
+                return util.isThisWeek(food.get('date'));
             })
             .reduce(function(memo, food) {
                 return memo + food.get('calories');
@@ -34,7 +34,7 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
         var now = new Date();
         return this.chain()
             .filter(function(food) {
-                return (new Date(food.get('date')).getMonth() == now.getMonth());
+                return (food.get('date').getMonth() == now.getMonth());
             })
             .reduce(function(memo, food) {
                 return memo + food.get('calories');

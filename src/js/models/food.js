@@ -1,3 +1,4 @@
+'use strict';
 var Food = Backbone.Model.extend({
     defaults: {
         name: '',
@@ -6,9 +7,13 @@ var Food = Backbone.Model.extend({
         date: '',
     },
 
-    parse: function(response, options) {
-        console.log(response);
-        return reponse;
+    get: function(attr) {
+        var val = Backbone.Model.prototype.get.call(this, attr);
+        if (attr == 'date') {
+            return new Date(val);
+        } else {
+            return val;
+        }
     },
 
     toJSON: function() {
