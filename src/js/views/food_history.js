@@ -5,46 +5,27 @@ var DayView = require('./day.js');
 var HistoryView = Backbone.View.extend({
     el: 'body',
 
-    collection: foodHistory,
+    collection: new Days(),
 
     initialize: function() {
         this.days = new Days();
 
         this.$foodHistory = this.$('#food-history');
 
-        this.listenTo(foodHistory, 'all', this.render);
+        this.listenTo(this.collection, 'days_loaded', this.addAllDays);
+        //this.listenTo(this.collection, 'add', this.addDay);
     },
 
-    render: function() {
+    addAllDays: function() {
         var self = this;
         this.$foodHistory.empty();
-        // this.collection.sort();
-        var prevDate = new Date(1990, 1, 1);
-        var days = [];
-        this.collection.forEach(function(food) {
-            if (food.attributes.date !== '') {
-                var dateObj = food.get('date');
-                // Clear time, just leaving day
-                dateObj.setHours(0,0,0,0);
-                if (dateObj.valueOf() !== prevDate.valueOf()) {
-                    days.push({
-                        date: dateObj.toString(),
-                        foods: [food.get('name')]
-                    });
-                } else {
-                    _.last(days).foods.push(food.attributes.name);
-                }
-                prevDate = dateObj;
-            }
-        });
 
-        days.forEach(function(day) {
-            var model = new Backbone.Model();
-            model.set(day);
-            var view = new DayView({model: model});
+        this.collection.forEach(function(day) {
+            var view = new DayView({model: day});
             self.$foodHistory.append(view.render().el);
         });
     },
+
 });
 
 module.exports = HistoryView;

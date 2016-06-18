@@ -9,7 +9,7 @@ var StatsView = Backbone.View.extend({
     template: statsTemplate,
 
     initialize: function() {
-        this.listenTo(foodHistory, 'all', this.render);
+        this.listenTo(foodHistory, 'update', this.render);
     },
 
     render: function() {

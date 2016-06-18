@@ -9,14 +9,21 @@ var DayView = Backbone.View.extend({
             '</header>' +
             '<ul>' +
                 '<% foods.forEach(function(food) { %>' +
-                    '<li><%= food %></li>' +
+                    '<li><% print(food.get("name")) %></li>' +
                 '<% }) %>' +
             '</ul>' +
         '</section>'
     ),
 
     render: function() {
-        this.$el.html(this.template(this.model.attributes));
+        var self = this;
+        this.$el.html(this.template({
+            date: self.model.get('date'),
+            foods: self.model.foods,
+        }));
+        self.model.foods.forEach(function(food) {
+            console.log(food.get('name'));
+        });
         return this;
     },
 });
