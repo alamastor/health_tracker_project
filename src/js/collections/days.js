@@ -24,16 +24,24 @@ var Days = Backbone.Collection.extend({
 
     addExistingDays: function() {
         var self = this;
-        var firstDay = foodHistory.chain()
-            .min(function(food) {
-                return food.get('date');
-            })
-            .value()
-            .get('date');
-        var day = firstDay;
-        var today = new Date().setHours(0,0,0,0);
+        var today = new Date();
+        var defaultFirstDay = new Date();
+        defaultFirstDay.setMonth(today.getMonth() - 1);
+        defaultFirstDay.setHours(0,0,0,0);
+        var firstDay;
+        if (foodHistory.length === 0) {
+            firstDay = defaultFirstDay;
+        } else {
+            firstDay = foodHistory.chain()
+                .min(function(food) {
+                    return food.get('date');
+                })
+                .value()
+                .get('date');
+        }
+        var day = _.min([firstDay, defaultFirstDay]);
         var days = [];
-        while (day.setHours(0,0,0,0) <= today) {
+        while (day.setHours(0,0,0,0) <= today.setHours(0,0,0,0)) {
             var dayModel = new Day({'date': day});
             days.push(dayModel);
             this.dateMap[new Date(day.setHours(0,0,0,0)).toString()] = dayModel;
@@ -42,7 +50,8 @@ var Days = Backbone.Collection.extend({
         this.add(days);
 
         foodHistory.forEach(function(food) {
-            self.addFood(food);
+            var day = self.dateMap[food.get('date').toString()];
+            day.foods.add(food);
         });
 
         this.trigger('days_loaded');
@@ -50,9 +59,13 @@ var Days = Backbone.Collection.extend({
     },
 
     addFood: function(food) {
-        var day = this.dateMap[new Date(food.get('date').setHours(0,0,0,0)).toString()];
-        console.log(day);
-        day.foods.add(food);
+        var day = this.dateMap[food.get('date').toString()];
+        if (this.dateMap.hasOwnProperty(day)) {
+            day.foods.add(food);
+        } else {
+            // Rare case where day does not alreay exists, rerender view
+            this.addExistingDays();
+        }
     },
 });
 module.exports = Days;

@@ -4,7 +4,8 @@ var DayView = Backbone.View.extend({
     tagName: 'div',
 
     events: {
-        'mouseenter li': 'hover',
+        'mouseenter li': 'mouseenter',
+        'mouseleave li': 'mouseleave',
         'click .food__delete': 'delete',
     },
 
@@ -23,17 +24,23 @@ var DayView = Backbone.View.extend({
         return this;
     },
 
-    hover: function(e) {
-        console.log(e);
+    mouseenter: function(e) {
+        var foodName = e.target.parentElement.querySelector('.food__delete').style.display = '';
+    },
+
+    mouseleave: function(e) {
+        var foodName = e.target.parentElement.querySelector('.food__delete').style.display = 'none';
     },
 
     delete: function(e) {
         var foodName = e.target.parentElement.querySelector('.food__name').textContent;
-        this.model.foods.forEach(function(food) {
-            if (food.get('name') == foodName) {
-                food.destroy();
+        // Use for instead of forEach because breaking is required
+        for (var i; i < this.model.foods.len; i++) {
+            if (this.model.foods[i].get('name') == foodName) {
+                this.model.foods[i].destroy();
+                break;
             }
-        });
+        };
     },
 });
 module.exports = DayView;
