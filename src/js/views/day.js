@@ -25,19 +25,19 @@ var DayView = Backbone.View.extend({
     },
 
     mouseenter: function(e) {
-        var foodName = e.target.parentElement.querySelector('.food__delete').style.display = '';
+        e.target.parentElement.querySelector('.food__delete').classList.remove('hidden');
     },
 
     mouseleave: function(e) {
-        var foodName = e.target.parentElement.querySelector('.food__delete').style.display = 'none';
+        e.target.parentElement.querySelector('.food__delete').classList.add('hidden');
     },
 
     delete: function(e) {
         var foodName = e.target.parentElement.querySelector('.food__name').textContent;
         // Use for instead of forEach because breaking is required
-        for (var i; i < this.model.foods.len; i++) {
-            if (this.model.foods[i].get('name') == foodName) {
-                this.model.foods[i].destroy();
+        for (var i = 0; i < this.model.foods.length; i++) {
+            if (this.model.foods.models[i].get('name') == foodName) {
+                this.model.foods.models[i].destroy();
                 break;
             }
         };

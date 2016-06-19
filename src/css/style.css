@@ -24,3 +24,7 @@ main {
   overflow-y: scroll;
   list-style-type: none;
 }
+
+.hidden {
+  display: none;
+}

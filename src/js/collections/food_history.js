@@ -4,7 +4,15 @@ var util = require('../util.js');
 var Food = require('../models/Food.js');
 var FoodHistory = Backbone.Firebase.Collection.extend({
     url: 'https://udacity-heath-tracker.firebaseio.com/food_history',
-    model: Food,
+
+    model: function(attrs, options) {
+        if (attrs.date.constructor.name == 'Date') {
+            return new Food(attrs, options);
+        } else {
+            attrs.date = new Date(attrs.date);
+            return new Food(attrs, options);
+        }
+    },
 
     comparator: 'date',
 

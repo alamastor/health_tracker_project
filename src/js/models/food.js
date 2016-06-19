@@ -18,10 +18,10 @@ var Food = Backbone.Model.extend({
         }
     },
 
-    /*toJSON: function() {
+    toJSON: function() {
         var obj = Backbone.Model.prototype.toJSON.call(this);
         obj.date = obj.date.toJSON();
+        return obj;
     },
-    */
 });
 module.exports = Food;

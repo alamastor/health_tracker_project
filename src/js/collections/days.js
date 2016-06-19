@@ -59,8 +59,9 @@ var Days = Backbone.Collection.extend({
     },
 
     addFood: function(food) {
-        var day = this.dateMap[food.get('date').toString()];
-        if (this.dateMap.hasOwnProperty(day)) {
+        var dateStr = food.get('date').toString()
+        if (this.dateMap.hasOwnProperty(dateStr)) {
+            var day = this.dateMap[dateStr];
             day.foods.add(food);
         } else {
             // Rare case where day does not alreay exists, rerender view
