@@ -42,11 +42,17 @@ var Days = Backbone.Collection.extend({
         this.add(days);
 
         foodHistory.forEach(function(food) {
-            var day = self.dateMap[new Date(food.get('date').setHours(0,0,0,0)).toString()];
-            day.foods.add(food);
+            self.addFood(food);
         });
 
         this.trigger('days_loaded');
+        this.listenTo(foodHistory, 'add', this.addFood);
+    },
+
+    addFood: function(food) {
+        var day = this.dateMap[new Date(food.get('date').setHours(0,0,0,0)).toString()];
+        console.log(day);
+        day.foods.add(food);
     },
 });
 module.exports = Days;

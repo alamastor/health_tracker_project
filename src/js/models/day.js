@@ -12,7 +12,7 @@ var Day = Backbone.Model.extend({
     },
 
     initialize: function() {
-        this.foods = new Foods()
+        this.foods = new Foods();
     },
 });
 module.exports = Day;
