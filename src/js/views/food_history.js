@@ -21,18 +21,8 @@ var HistoryView = Backbone.View.extend({
             var view = new DayView({model: day});
             self.$foodHistory.append(view.render().el);
         });
-        this.listenTo(this.collection, 'update', this.rerender);
     },
 
-    rerender: function() {
-        var self = this;
-        this.$foodHistory.empty();
-
-        this.collection.forEach(function(day) {
-            var view = new DayView({model: day});
-            self.$foodHistory.append(view.render().el);
-        });
-    },
 
 });
 

@@ -4,7 +4,10 @@
   </header>
   <ul>
     <% foods.forEach(function(food) { %>
-      <li><% print(food.get("name")) %></li>
+      <li class="day__food">
+        <span class="food__name"><% print(food.get("name")) %></span>
+        <span class="food__delete">&#x2717;</span>
+      </li>
     <% }) %>
   </ul>
 </section>
