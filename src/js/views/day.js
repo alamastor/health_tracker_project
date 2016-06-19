@@ -17,8 +17,22 @@ var DayView = Backbone.View.extend({
 
     render: function() {
         var self = this;
+        var dateStr;
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        var yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+        yesterday.setHours(0,0,0,0);
+        if (this.model.get('date').valueOf() == today.valueOf()) {
+            dateStr = 'Today';
+        } else if (this.model.get('date').valueOf() == yesterday.valueOf()) {
+            dateStr = 'Yesterday';
+        } else {
+            var dateSplit = this.model.get('date').toDateString().split(' ');
+            dateStr = dateSplit[0] + ', ' + dateSplit[1] + ' ' + dateSplit[2];
+        }
         this.$el.html(this.template({
-            date: self.model.get('date'),
+            date: dateStr,
             foods: self.model.foods,
         }));
         return this;
@@ -40,7 +54,7 @@ var DayView = Backbone.View.extend({
                 this.model.foods.models[i].destroy();
                 break;
             }
-        };
+        }
     },
 });
 module.exports = DayView;
