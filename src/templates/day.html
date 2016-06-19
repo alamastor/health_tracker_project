@@ -1,0 +1,10 @@
+<section class="day">
+  <header class="day__header">
+    <%= date %>
+  </header>
+  <ul>
+    <% foods.forEach(function(food) { %>
+      <li><% print(food.get("name")) %></li>
+    <% }) %>
+  </ul>
+</section>

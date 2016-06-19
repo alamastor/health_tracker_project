@@ -1,4 +1,5 @@
 'use strict';
+var dayTemplate = require('../../templates/day.html');
 var DayView = Backbone.View.extend({
     tagName: 'div',
 
@@ -6,18 +7,7 @@ var DayView = Backbone.View.extend({
         this.listenTo(this.model.foods, 'all', this.render);
     },
 
-    template: _.template(
-        '<section class="day">' +
-            '<header class="day__header">' +
-                '<%= date %>' +
-            '</header>' +
-            '<ul>' +
-                '<% foods.forEach(function(food) { %>' +
-                    '<li><% print(food.get("name")) %></li>' +
-                '<% }) %>' +
-            '</ul>' +
-        '</section>'
-    ),
+    template: dayTemplate,
 
     render: function() {
         var self = this;
