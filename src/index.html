@@ -7,20 +7,25 @@
   <link href="css/style.css" rel=stylesheet>
 </head>
 <body>
-  <main>
+  <header class="header">
+    <h1>Daily Calory Tracker</h1>
     <div id="search" class="search">
       <form id="search-form" class="search-form">
         <input id="search-input" class="search-form__input" />
         <button class="search-form__button">Submit</button>
       </form>
-      <ul class="search__results" id="search-results">
-      </ul>
     </div>
+  </header>
+  <main>
     <section id="food-history" class="food-history">
     </section>
-    <section id="stats" class="stats">
-    </section>
   </main>
+  <section class="search-results">
+    <ul id="search-results" class=search-results__list">
+    </ul>
+  </section>
+  <footer id="stats" class="stats">
+  </footer>
   <script src="js/bundle.js"></script>
 </body>
 </html>

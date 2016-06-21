@@ -1,7 +1,8 @@
 'use strict';
 var dayTemplate = require('../../templates/day.html');
 var DayView = Backbone.View.extend({
-    tagName: 'div',
+    tagName: 'section',
+    className: 'day',
 
     events: {
         'mouseenter li': 'mouseenter',

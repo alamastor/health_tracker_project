@@ -1,6 +1,5 @@
 'use strict';
 var searchResults = require('../collections/search_results.js');
-var SearchResultView = require('./search_result.js');
 var tokens = require('../tokens.js');
 var SearchView = Backbone.View.extend({
     el: '#search',
@@ -11,9 +10,6 @@ var SearchView = Backbone.View.extend({
 
     initialize: function() {
         this.$searchInput = this.$('#search-input');
-        this.$searchResults = this.$('#search-results');
-
-        this.listenTo(searchResults, 'add', this.addSearchResult);
     },
 
     searchSubmit: function(event) {
@@ -51,12 +47,6 @@ var SearchView = Backbone.View.extend({
             console.log(jqXHR);
             console.log(errorThrown);
         });
-    },
-
-    addSearchResult: function(result) {
-        console.log('add search res');
-        var view = new SearchResultView({model: result});
-        this.$searchResults.append(view.render().el);
     },
 });
 module.exports = SearchView;
