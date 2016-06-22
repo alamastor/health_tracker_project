@@ -22,8 +22,6 @@ var HistoryView = Backbone.View.extend({
             self.$foodHistory.append(view.render().el);
         });
     },
-
-
 });
 
 module.exports = HistoryView;
