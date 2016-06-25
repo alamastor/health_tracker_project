@@ -34,21 +34,22 @@ var DayView = Backbone.View.extend({
         }
         this.$el.html(this.template({
             date: dateStr,
+            dayCalories: this.model.foods.getTotalCalories(),
             foods: self.model.foods,
         }));
         return this;
     },
 
     mouseenter: function(e) {
-        e.target.parentElement.querySelector('.food__delete').classList.remove('hidden');
+        e.target.parentElement.querySelector('.food__delete--icon').classList.remove('hidden');
     },
 
     mouseleave: function(e) {
-        e.target.parentElement.querySelector('.food__delete').classList.add('hidden');
+        e.target.parentElement.querySelector('.food__delete--icon').classList.add('hidden');
     },
 
     delete: function(e) {
-        var foodName = e.target.parentElement.querySelector('.food__name').textContent;
+        var foodName = e.target.parentElement.parentElement.querySelector('.food__name').textContent;
         // Use for instead of forEach because breaking is required
         for (var i = 0; i < this.model.foods.length; i++) {
             if (this.model.foods.models[i].get('name') == foodName) {

@@ -14,7 +14,6 @@ var StatsView = Backbone.View.extend({
 
     render: function() {
         this.$el.html(statsTemplate({
-            todayCals: this.collection.getTodayCalories(),
             weeklyAveCals: this.collection.getWeeklyAve(),
             monthlyAveCals: this.collection.getMonthlyAve(),
         }));

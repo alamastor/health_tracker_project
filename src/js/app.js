@@ -7,3 +7,5 @@ new HistoryView();
 new StatsView();
 new SearchView();
 new SearchResultsView();
+
+var firebase = require('firebase')

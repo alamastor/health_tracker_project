@@ -16,17 +16,6 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
 
     comparator: 'date',
 
-    getTodayCalories: function() {
-        var now = new Date();
-        return this.chain()
-            .filter(function(food) {
-                return food.get('date');
-            })
-            .reduce(function(memo, food) {
-                return memo + food.get('calories');
-            }, 0);
-    },
-
     getWeeklyAve: function() {
         var now = new Date();
         return this.chain()

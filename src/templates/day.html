@@ -1,11 +1,14 @@
 <header class="day__header">
-  <%= date %>
+  <span class="day__header--date"><%= date %></span>
+  <button class="day__header--add">&plus; Add Food</button>
+  <span class="day__header--calories"><% print(Math.round(dayCalories)) %> Cal</span>
 </header>
 <ul class="day__foods">
   <% foods.forEach(function(food) { %>
-    <li class="day__food">
+    <li class="food">
+      <div class="food__delete"><span class="food__delete--icon hidden">&#x2717;</span></div>
       <span class="food__name"><% print(food.get("name")) %></span>
-      <span class="food__delete hidden">&#x2717;</span>
+      <span class="food__calories"><% print(Math.round(food.get("calories"))) %> Cal</span>
     </li>
   <% }) %>
 </ul>

@@ -63,14 +63,33 @@ main {
 }
 
 .stats__group {
-  width: 33%;
+  width: 50%;
   text-align: center;
+}
+
+.day__header {
+  display: flex;
+}
+
+.day__header--add {
+  margin-left: auto;
 }
 
 .day__foods {
   list-style: none;
+  padding: 0;
 }
 
-.day__food {
+.food {
+  display: flex;
   border-bottom: 1px solid gray;
+  padding: 0.5em;
+}
+
+.food__delete {
+  width: 1em;
+}
+
+.food__calories {
+  margin-left: auto;
 }
