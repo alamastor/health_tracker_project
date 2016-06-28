@@ -1,5 +1,8 @@
 'use strict';
 var webpack = require('webpack');
+var bowerPath = function(path) {
+    return __dirname + '/bower_components/' + path;
+};
 module.exports = {
     entry: './src/js/app.js',
     output: {
@@ -9,11 +12,11 @@ module.exports = {
     },
     resolve: {
         alias: {
-            jquery: __dirname + '/bower_components/jquery/dist/jquery.js',
-            underscore: __dirname + '/bower_components/underscore/underscore.js',
-            backbone: __dirname + '/bower_components/backbone/backbone.js',
-            firebase: __dirname + '/bower_components/firebase/firebase.js',
-            backbonefire: __dirname + '/bower_components/backbonefire/dist/backbonefire.js'
+            jquery: bowerPath('jquery/dist/jquery.js'),
+            underscore: bowerPath('underscore/underscore.js'),
+            backbone: bowerPath('backbone/backbone.js'),
+            firebase2: bowerPath('firebase/firebase.js'),
+            backbonefire: bowerPath('backbonefire/dist/backbonefire.js'),
         }
     },
     plugins: [
@@ -26,7 +29,7 @@ module.exports = {
     module: {
         loaders: [
             {test: /underscore\.js$/, loader: 'expose?_'},
-            {test: /backbonefire\.js/, loader: 'imports?firebase'},
+            {test: /backbonefire\.js$/, loader: 'imports?firebase2'},
             {test: /\.html$/, loader: 'underscore-template-loader'}
         ]
     },

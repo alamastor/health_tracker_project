@@ -1,12 +1,11 @@
 'use strict';
-var foodHistory = require('../collections/food_history.js');
 var Days = require('../collections/days');
 var DayView = require('./day.js');
 var HistoryView = Backbone.View.extend({
     el: 'body',
 
-    initialize: function() {
-        this.collection = new Days();
+    initialize: function(options) {
+        this.collection = new Days(null, {foodHistory: options.foodHistory});
 
         this.$foodHistory = this.$('#food-history');
 

@@ -17,7 +17,10 @@ var SearchResultsView = Backbone.View.extend({
 
     addSearchResult: function(result) {
         console.log('add search res');
-        var view = new SearchResultView({model: result});
+        var view = new SearchResultView({
+            model: result,
+        });
+        view.foodHistory = this.foodHistory;
         this.$searchResultsList.append(view.render().el);
         this.$el.removeClass('hidden');
     },

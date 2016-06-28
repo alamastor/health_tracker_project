@@ -3,7 +3,14 @@ require('backbonefire');
 var util = require('../util.js');
 var Food = require('../models/Food.js');
 var FoodHistory = Backbone.Firebase.Collection.extend({
-    url: 'https://udacity-heath-tracker.firebaseio.com/food_history',
+    url: function() {
+        return this.setUrl;
+    },
+
+    initialize: function(models, options) {
+        console.log(options);
+        this.setUrl = options.url;
+    },
 
     model: function(attrs, options) {
         if (attrs.date.constructor.name == 'Date') {
@@ -38,5 +45,4 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
             }, 0) / now.getDate();
     },
 });
-var foodHistory = new FoodHistory();
-module.exports = foodHistory;
+module.exports = FoodHistory;

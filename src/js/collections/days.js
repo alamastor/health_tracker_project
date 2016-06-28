@@ -1,6 +1,5 @@
 'use strict';
 var Day = require('../models/day.js');
-var foodHistory = require('./food_history.js');
 var Days = Backbone.Collection.extend({
     sync: function() {},
 
@@ -16,8 +15,9 @@ var Days = Backbone.Collection.extend({
         return -1;
     },
 
-    initialize: function() {
-        this.listenTo(foodHistory, 'sync', _.once(this.addExistingDays));
+    initialize: function(models, options) {
+        this.foodHistory = options.foodHistory;
+        this.listenTo(this.foodHistory, 'sync', _.once(this.addExistingDays));
     },
 
     dateMap: {},
@@ -29,10 +29,10 @@ var Days = Backbone.Collection.extend({
         defaultFirstDay.setMonth(today.getMonth() - 1);
         defaultFirstDay.setHours(0,0,0,0);
         var firstDay;
-        if (foodHistory.length === 0) {
+        if (this.foodHistory.length === 0) {
             firstDay = defaultFirstDay;
         } else {
-            firstDay = foodHistory.chain()
+            firstDay = this.foodHistory.chain()
                 .min(function(food) {
                     return food.get('date');
                 })
@@ -49,17 +49,17 @@ var Days = Backbone.Collection.extend({
         }
         this.add(days);
 
-        foodHistory.forEach(function(food) {
+        this.foodHistory.forEach(function(food) {
             var day = self.dateMap[food.get('date').toString()];
             day.foods.add(food);
         });
 
         this.trigger('days_loaded');
-        this.listenTo(foodHistory, 'add', this.addFood);
+        this.listenTo(this.foodHistory, 'add', this.addFood);
     },
 
     addFood: function(food) {
-        var dateStr = food.get('date').toString()
+        var dateStr = food.get('date').toString();
         if (this.dateMap.hasOwnProperty(dateStr)) {
             var day = this.dateMap[dateStr];
             day.foods.add(food);
