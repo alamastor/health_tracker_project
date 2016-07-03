@@ -2,14 +2,25 @@
 require('backbonefire');
 var util = require('../util.js');
 var Food = require('../models/Food.js');
+// TODO: Move auth out of models
+var auth = require('../models/auth.js');
+var tokens = require('../tokens.js');
+var EXAMPLE_DB_URL = tokens.firebase.databaseURL + '/example/food_history';
+
 var FoodHistory = Backbone.Firebase.Collection.extend({
     url: function() {
-        return this.setUrl;
+        return this.dbUrl;
     },
 
-    initialize: function(models, options) {
-        console.log(options);
-        this.setUrl = options.url;
+    initialize: function() {
+        this.dbUrl = EXAMPLE_DB_URL;
+
+        this.listenTo(auth, 'auth_state_changed', this.userChanged);
+    },
+
+    userChanged: function() {
+        this.dbUrl = auth.dbUrl;
+        this.fetch();
     },
 
     model: function(attrs, options) {
@@ -45,4 +56,6 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
             }, 0) / now.getDate();
     },
 });
-module.exports = FoodHistory;
+
+var foodHistory = new FoodHistory();
+module.exports = foodHistory;

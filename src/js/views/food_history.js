@@ -4,8 +4,8 @@ var DayView = require('./day.js');
 var HistoryView = Backbone.View.extend({
     el: 'body',
 
-    initialize: function(options) {
-        this.collection = new Days(null, {foodHistory: options.foodHistory});
+    initialize: function() {
+        this.collection = new Days();
 
         this.$foodHistory = this.$('#food-history');
 

@@ -1,6 +1,9 @@
 'use strict';
 var tokens = require('../tokens.js');
+var authController = require('../models/auth.js');
 var authTemplate = require('../../templates/auth.html');
+var firebase = require('firebase/app');
+require('firebase/auth');
 var AuthView = Backbone.View.extend({
     el: '#auth',
 
@@ -11,9 +14,7 @@ var AuthView = Backbone.View.extend({
         'click #logout': 'doLogout'
     },
 
-    initialize: function(options) {
-        this.firebase = options.firebase;
-        this.auth = this.firebase.auth();
+    initialize: function() {
         this.render();
     },
 
@@ -22,19 +23,9 @@ var AuthView = Backbone.View.extend({
         return this;
     },
 
-    doGoogleLogin: function() {
-        var provider = new this.firebase.auth.GoogleAuthProvider();
-        this.auth.signInWithPopup(provider).then(function(result) {
-            // User signed in
-            var uid = result.user.uid;
-        }).catch(function(error) {
-            console.log(error);
-        });
-    },
+    doGoogleLogin: authController.doGoogleLogin,
+    doLogout: authController.doLogout
 
-    doLogout: function() {
-        this.auth.signOut();
-    },
 });
 
 module.exports = AuthView;
