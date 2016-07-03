@@ -1,6 +1,7 @@
 'use strict';
 var searchResultTemplate = require('../../templates/search_result.html');
 var searchResults = require('../collections/search_results.js');
+var authContoller = require('../auth.js');
 var SearchResultView = Backbone.View.extend({
     tagName: 'li',
 
@@ -18,7 +19,7 @@ var SearchResultView = Backbone.View.extend({
     select: function() {
         var new_food = this.model.attributes;
         new_food.date = new Date();
-        this.foodHistory.add([
+        authContoller.foodHistory.add([
             new_food,
         ]);
         searchResults.reset();

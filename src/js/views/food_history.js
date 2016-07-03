@@ -1,6 +1,7 @@
 'use strict';
 var Days = require('../collections/days');
 var DayView = require('./day.js');
+var authContoller = require('../auth.js');
 var HistoryView = Backbone.View.extend({
     el: 'body',
 
@@ -10,6 +11,7 @@ var HistoryView = Backbone.View.extend({
         this.$foodHistory = this.$('#food-history');
 
         this.listenTo(this.collection, 'days_loaded', this.render);
+        this.listenTo(authContoller, 'auth_state_changed', this.initialize);
     },
 
     render: function() {

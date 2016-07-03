@@ -1,5 +1,5 @@
 'use strict';
-var foodHistory = require('./food_history');
+var authContoller = require('../auth.js');
 var Day = require('../models/day.js');
 var Days = Backbone.Collection.extend({
     sync: function() {},
@@ -17,24 +17,23 @@ var Days = Backbone.Collection.extend({
     },
 
     initialize: function() {
-        this.listenTo(foodHistory, 'sync', _.once(this.addExistingDays));
-        // TODO: Fetch is not an event, use one that works!
-        this.listenTo(foodHistory, 'fetch', this.addExistingDays);
+        this.listenTo(authContoller.foodHistory, 'sync', this.addExistingDays);
     },
 
     dateMap: {},
 
     addExistingDays: function() {
+        this.reset();
         var self = this;
         var today = new Date();
         var defaultFirstDay = new Date();
         defaultFirstDay.setMonth(today.getMonth() - 1);
         defaultFirstDay.setHours(0,0,0,0);
         var firstDay;
-        if (foodHistory.length === 0) {
+        if (authContoller.foodHistory.length === 0) {
             firstDay = defaultFirstDay;
         } else {
-            firstDay = foodHistory.chain()
+            firstDay = authContoller.foodHistory.chain()
                 .min(function(food) {
                     return food.get('date');
                 })
@@ -51,13 +50,13 @@ var Days = Backbone.Collection.extend({
         }
         this.add(days);
 
-        foodHistory.forEach(function(food) {
+        authContoller.foodHistory.forEach(function(food) {
             var day = self.dateMap[food.get('date').toString()];
             day.foods.add(food);
         });
 
         this.trigger('days_loaded');
-        this.listenTo(foodHistory, 'add', this.addFood);
+        this.listenTo(authContoller.foodHistory, 'add', this.addFood);
     },
 
     addFood: function(food) {

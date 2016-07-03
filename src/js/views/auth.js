@@ -1,9 +1,8 @@
 'use strict';
 var tokens = require('../tokens.js');
-var authController = require('../models/auth.js');
+var authController = require('../auth.js');
 var authTemplate = require('../../templates/auth.html');
-var firebase = require('firebase/app');
-require('firebase/auth');
+var authController = require('../auth.js');
 var AuthView = Backbone.View.extend({
     el: '#auth',
 
@@ -15,17 +14,17 @@ var AuthView = Backbone.View.extend({
     },
 
     initialize: function() {
+        this.listenTo(authController, 'auth_state_changed', this.render);
         this.render();
     },
 
     render: function() {
-        this.$el.html(this.template());
+        this.$el.html(this.template({username: authController.username}));
         return this;
     },
 
     doGoogleLogin: authController.doGoogleLogin,
     doLogout: authController.doLogout
-
 });
 
 module.exports = AuthView;
