@@ -1,15 +1,15 @@
 'use strict';
-var foodHistory = require('../collections/food_history.js');
+var authController = require('../auth.js');
 var statsTemplate = require('../../templates/stats.html');
 var StatsView = Backbone.View.extend({
     el: '#stats',
 
-    collection: foodHistory,
+    collection: authController.foodHistory,
 
     template: statsTemplate,
 
     initialize: function() {
-        this.listenTo(foodHistory, 'update', this.render);
+        this.listenTo(authController.foodHistory, 'update', this.render);
     },
 
     render: function() {
