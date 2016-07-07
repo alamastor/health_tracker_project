@@ -9,8 +9,21 @@ var StatsView = Backbone.View.extend({
     template: statsTemplate,
 
     initialize: function() {
-        this.listenTo(authController.foodHistory, 'update', this.render);
+        this.listenTo(authController, 'auth_state_changed', this.updateCollection);
+        this.listenTo(this.collection, 'update', this.render);
     },
+
+    updateCollection: function() {
+        this.stopListening(this.collection);
+
+        this.collection = authController.foodHistory;
+
+        this.listenTo(authController, 'auth_state_changed', this.updateListener);
+        this.listenTo(this.collection, 'update', this.render);
+
+        this.render();
+    },
+
 
     render: function() {
         this.$el.html(statsTemplate({
