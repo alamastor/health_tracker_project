@@ -9,8 +9,10 @@ var SearchResultsView = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.listenTo(searchResults, 'add', this.addSearchResult);
-        this.listenTo(searchResults, 'reset', this.resetSearchResults);
+        this.collection = searchResults;
+
+        this.listenTo(this.collection, 'add', this.addSearchResult);
+        this.listenTo(this.collection, 'reset', this.resetSearchResults);
 
         this.$searchResultsList = this.$('#search-results__list');
     },
@@ -26,11 +28,13 @@ var SearchResultsView = Backbone.View.extend({
     },
 
     cancelSearch: function() {
-        searchResults.reset();
+        this.collection.reset();
     },
 
     resetSearchResults: function() {
+        this.$searchResultsList.scrollTop(0);
         this.$el.addClass('hidden');
+        this.$searchResultsList.empty();
     },
 });
 module.exports = SearchResultsView;

@@ -1,6 +1,8 @@
 <header class="day__header">
   <span class="day__header--date"><%= date %></span>
-  <button class="day__header--add">&plus; Add Food</button>
+  <form class="day__header--add" >
+    <input id="day-food-search" type="text" placeholder="Add Food"/>
+  </form>
   <span class="day__header--calories"><% print(Math.round(dayCalories)) %> Cal</span>
 </header>
 <ul class="day__foods">

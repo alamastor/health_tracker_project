@@ -18,7 +18,6 @@ var SearchResultView = Backbone.View.extend({
 
     select: function() {
         var new_food = this.model.attributes;
-        new_food.date = new Date();
         authContoller.foodHistory.add([
             new_food,
         ]);

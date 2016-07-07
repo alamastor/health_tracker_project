@@ -1,5 +1,6 @@
 'use strict';
 var dayTemplate = require('../../templates/day.html');
+var search = require('../search.js');
 var DayView = Backbone.View.extend({
     tagName: 'section',
     className: 'day',
@@ -7,6 +8,7 @@ var DayView = Backbone.View.extend({
     events: {
         'mouseenter li': 'mouseenter',
         'mouseleave li': 'mouseleave',
+        'submit .day__header--add': 'addFood',
         'click .food__delete': 'delete',
     },
 
@@ -37,6 +39,7 @@ var DayView = Backbone.View.extend({
             dayCalories: this.model.foods.getTotalCalories(),
             foods: self.model.foods,
         }));
+        this.$searchInput = this.$('#day-food-search');
         return this;
     },
 
@@ -57,6 +60,10 @@ var DayView = Backbone.View.extend({
                 break;
             }
         }
+    },
+
+    addFood: function() {
+        search.search(this.$searchInput.val(), this.model.get('date'));
     },
 });
 module.exports = DayView;
