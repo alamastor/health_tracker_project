@@ -29,7 +29,7 @@ var authController = {
                 self.foodHistory = new FoodHistory(null, {url: self.dbUrl});
                 router.navigate('dist/');
             }
-            this.trigger('auth_state_changed');
+            self.trigger('auth_state_changed');
         });
     },
 
