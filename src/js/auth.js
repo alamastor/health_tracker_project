@@ -6,7 +6,6 @@ var router = require('./router.js');
 var tokens = require('./tokens.js');
 var EXAMPLE_DB_URL = tokens.firebase.databaseURL + '/example/food_history';
 
-// TODO: Change this to use _.extend with an initialize method I call after creation
 var authController = {
     dbUrl: EXAMPLE_DB_URL,
 
