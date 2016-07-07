@@ -21,10 +21,6 @@ var FoodHistory = Backbone.Firebase.Collection.extend({
 
     comparator: 'date',
 
-    update: function() {
-        Backbone.Firebase.Collection.prototype.update.call(this);
-    },
-
     getWeeklyAve: function() {
         var now = new Date();
         return this.chain()
