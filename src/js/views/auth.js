@@ -23,8 +23,13 @@ var AuthView = Backbone.View.extend({
         return this;
     },
 
-    doGoogleLogin: authController.doGoogleLogin,
-    doLogout: authController.doLogout
+    doGoogleLogin: function() {
+        authController.doGoogleLogin();
+    },
+
+    doLogout: function() {
+        authController.doLogout();
+    },
 });
 
 module.exports = AuthView;

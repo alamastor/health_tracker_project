@@ -7,38 +7,48 @@ var tokens = require('./tokens.js');
 var EXAMPLE_DB_URL = tokens.firebase.databaseURL + '/example/food_history';
 
 // TODO: Change this to use _.extend with an initialize method I call after creation
-var authController = _.clone(Backbone.Events);
-authController.dbUrl = EXAMPLE_DB_URL;
-authController.username = 'Example';
-authController.firebaseApp = firebase.initializeApp(tokens.firebase);
-authController.auth = authController.firebaseApp.auth();
-authController.foodHistory = new FoodHistory(null, {url: authController.dbUrl});
-authController.auth.onAuthStateChanged(function(user) {
-    if (user) {
-        authController.dbUrl = tokens.firebase.databaseURL + '/' + user.uid + '/food_history';
-        authController.username = user.displayName;
-        authController.foodHistory = new FoodHistory(null, {url: authController.dbUrl});
-        router.navigate('dist/' + user.uid);
-    } else {
-        authController.dbUrl = EXAMPLE_DB_URL;
-        authController.username = 'Example';
-        authController.foodHistory = new FoodHistory(null, {url: authController.dbUrl});
-        router.navigate('dist/');
-    }
-    authController.trigger('auth_state_changed');
-});
-authController.doGoogleLogin = function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    authController.auth.signInWithPopup(provider).then(function(result) {
-        // User signed in
-        var uid = result.user.uid;
-    }).catch(function(error) {
-        console.log(error);
-    });
-};
-authController.doLogout = function() {
-    authController.auth.signOut();
-};
+var authController = {
+    dbUrl: EXAMPLE_DB_URL,
 
+    username: 'Example',
+
+    firebaseApp: firebase.initializeApp(tokens.firebase),
+
+    initialize: function() {
+        this.foodHistory = new FoodHistory(null, {url: this.dbUrl});
+        this.auth = this.firebaseApp.auth();
+        var self = this;
+        this.auth.onAuthStateChanged(function(user) {
+            if (user) {
+                self.dbUrl = tokens.firebase.databaseURL + '/' + user.uid + '/food_history';
+                self.username = user.displayName;
+                self.foodHistory = new FoodHistory(null, {url: self.dbUrl});
+                router.navigate('dist/' + user.uid);
+            } else {
+                self.dbUrl = EXAMPLE_DB_URL;
+                self.username = 'Example';
+                self.foodHistory = new FoodHistory(null, {url: self.dbUrl});
+                router.navigate('dist/');
+            }
+            this.trigger('auth_state_changed');
+        });
+    },
+
+    doGoogleLogin: function() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        this.auth.signInWithPopup(provider).then(function(result) {
+            // User signed in
+            var uid = result.user.uid;
+        }).catch(function(error) {
+            console.log(error);
+        });
+    },
+
+    doLogout: function() {
+        this.auth.signOut();
+    },
+};
+_.extend(authController, Backbone.Events);
+authController.initialize();
 
 module.exports = authController;
