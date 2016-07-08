@@ -6,8 +6,6 @@ var DayView = Backbone.View.extend({
     className: 'day',
 
     events: {
-        'mouseenter li': 'mouseenter',
-        'mouseleave li': 'mouseleave',
         'submit .day__header--add': 'addFood',
         'click .food__delete': 'delete',
     },
@@ -40,15 +38,8 @@ var DayView = Backbone.View.extend({
             foods: self.model.foods,
         }));
         this.$searchInput = this.$('#day-food-search');
+
         return this;
-    },
-
-    mouseenter: function(e) {
-        e.target.parentElement.querySelector('.food__delete--icon').classList.remove('hidden');
-    },
-
-    mouseleave: function(e) {
-        e.target.parentElement.querySelector('.food__delete--icon').classList.add('hidden');
     },
 
     delete: function(e) {
