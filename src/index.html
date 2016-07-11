@@ -4,18 +4,19 @@
   <title>Health Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <link href="css/style.css" rel=stylesheet>
 </head>
 <body>
+  <nav>
+    <div id="auth"></div>
+  </nav>
   <header class="header">
-    <h1>Daily Calorie Tracker</h1>
+    <h1 class="header__title">Daily Calorie Tracker</h1>
     <div id="search" class="search">
-      <form id="search-form" class="search-form">
+      <form id="search-form" class="search-form" action="#">
         <input id="search-input" class="search-form__input" />
         <button class="search-form__button">Submit</button>
       </form>
     </div>
-    <div id="auth"></div>
   </header>
   <main>
     <section id="food-history" class="food-history">
