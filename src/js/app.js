@@ -1,4 +1,5 @@
 'use strict';
+require('../css/style.css');
 var HistoryView = require('./views/food_history.js');
 var StatsView = require('./views/stats.js');
 var SearchView = require('./views/search.js');
