@@ -55,6 +55,7 @@ var DayView = Backbone.View.extend({
 
     addFood: function() {
         search.search(this.$searchInput.val(), this.model.get('date'));
+        return false;
     },
 });
 module.exports = DayView;

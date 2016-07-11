@@ -16,6 +16,7 @@ module.exports = {
             underscore: bowerPath('underscore/underscore.js'),
             backbone: bowerPath('backbone/backbone.js'),
             firebase2: bowerPath('firebase/firebase.js'),
+            Firebase: bowerPath('firebase/firebase-app'),
             backbonefire: bowerPath('backbonefire/dist/backbonefire.js'),
         }
     },
@@ -29,7 +30,7 @@ module.exports = {
     module: {
         loaders: [
             {test: /underscore\.js$/, loader: 'expose?_'},
-            {test: /backbonefire\.js$/, loader: 'imports?firebase2'},
+            {test: /backbonefire\.js$/, loader: 'imports?firebase'},
             {test: /\.html$/, loader: 'underscore-template-loader'}
         ]
     },

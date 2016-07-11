@@ -1,33 +1,32 @@
 'use strict';
 var firebase = require('firebase/app');
 require('firebase/auth');
+require('firebase/database');
 var FoodHistory = require('./collections/food_history.js');
-var router = require('./router.js');
 var tokens = require('./tokens.js');
-var EXAMPLE_DB_URL = tokens.firebase.databaseURL + '/example/food_history';
+var EXAMPLE_DB_URL = '/example/food_history';
 
 var authController = {
-    dbUrl: EXAMPLE_DB_URL,
 
     username: 'Example',
 
     firebaseApp: firebase.initializeApp(tokens.firebase),
 
     initialize: function() {
-        this.foodHistory = new FoodHistory(null, {url: this.dbUrl});
+        var db = firebase.database();
+        var dbRef = db.ref(EXAMPLE_DB_URL);
+        this.foodHistory = new FoodHistory(null, {url: dbRef});
         this.auth = this.firebaseApp.auth();
         var self = this;
         this.auth.onAuthStateChanged(function(user) {
             if (user) {
-                self.dbUrl = tokens.firebase.databaseURL + '/' + user.uid + '/food_history';
+                dbRef = db.ref(user.uid + '/food_history');
                 self.username = user.displayName;
-                self.foodHistory = new FoodHistory(null, {url: self.dbUrl});
-                router.navigate('dist/' + user.uid);
+                self.foodHistory = new FoodHistory(null, {url: dbRef});
             } else {
-                self.dbUrl = EXAMPLE_DB_URL;
+                dbRef = db.ref(EXAMPLE_DB_URL);
                 self.username = 'Example';
-                self.foodHistory = new FoodHistory(null, {url: self.dbUrl});
-                router.navigate('dist/');
+                self.foodHistory = new FoodHistory(null, {url: dbRef});
             }
             self.trigger('auth_state_changed');
         });

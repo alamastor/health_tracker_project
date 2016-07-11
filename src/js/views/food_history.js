@@ -11,7 +11,7 @@ var HistoryView = Backbone.View.extend({
         this.$foodHistory = this.$('#food-history');
 
         this.listenTo(this.collection, 'days_loaded', this.render);
-        this.listenTo(authContoller, 'auth_state_changed', this.initialize);
+        this.listenTo(authContoller, 'auth_state_changed', this.updateCollection);
     },
 
     render: function() {
@@ -22,6 +22,14 @@ var HistoryView = Backbone.View.extend({
             var view = new DayView({model: day});
             self.$foodHistory.append(view.render().el);
         });
+    },
+
+    updateCollection: function() {
+        this.stopListening(this.collection);
+
+        this.collection = new Days();
+
+        this.listenTo(this.collection, 'days_loaded', this.render);
     },
 });
 

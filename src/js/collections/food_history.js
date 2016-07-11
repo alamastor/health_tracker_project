@@ -3,6 +3,8 @@ require('backbonefire');
 var util = require('../util.js');
 var Food = require('../models/Food.js');
 var tokens = require('../tokens.js');
+var firebase = require('firebase/app');
+var database = require('firebase/database');
 
 var FoodHistory = Backbone.Firebase.Collection.extend({
     constructor: function(models, options) {
