@@ -18,6 +18,7 @@ var Days = Backbone.Collection.extend({
 
     initialize: function() {
         this.listenTo(authContoller.foodHistory, 'sync', this.addExistingDays);
+        this.listenTo(authContoller, 'auth_state_changed', this.updateLister);
     },
 
     dateMap: {},
@@ -68,6 +69,13 @@ var Days = Backbone.Collection.extend({
             // Rare case where day does not alreay exists, rerender view
             this.addExistingDays();
         }
+    },
+
+    updateLister: function() {
+        this.stopListening();
+
+        this.listenTo(authContoller.foodHistory, 'sync', this.addExistingDays);
+        this.listenTo(authContoller, 'auth_state_changed', this.updateLister);
     },
 });
 module.exports = Days;
