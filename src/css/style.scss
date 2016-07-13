@@ -4,6 +4,7 @@ body {
   margin: 0 auto;
   max-width: 600px;
   background-color: lightgrey;
+  font-family: 'Work Sans', sans-serif;
 }
 
 nav {
@@ -16,17 +17,20 @@ nav {
 .header {
   height: 20vh;
   text-align: center;
+  background-color: cornsilk;
 }
 
 .header__title {
-  margin-top: 0;
+  margin: 0 auto 0.3em auto;
   padding-top: 1em;
+  font-size: 2.5em;
 }
 
 main {
   display: flex;
   height: 70vh;
   width: 100%;
+  background-color: cornsilk;
 }
 
 .hidden {
@@ -41,18 +45,26 @@ main {
 .search-form {
   width: 100%;
   height: 80%;
+  display: flex;
+  justify-content: center;
 }
 
 .search-form__input {
   width: 60%;
-  height: 100%;
-  font-size: 3em;
+  height: 80%;
+  font-size: 2em;
+  border: 0;
+  box-shadow: 0 0 1em grey;
 }
 .search-form__button {
   position: relative;
-  height: 100%;
+  height: 80%;
   width: 20%;
-  top: -20%;
+  border: none;
+  padding: 0;
+  background-color: chartreuse;
+  box-shadow: 0 0 1em grey;
+  font-size: 1em;
 }
 
 .food-history {
@@ -85,14 +97,21 @@ main {
   position: absolute;
   bottom: 0;
   left: 0;
+  border: none;
+  font-size: 1em;
   height: 10%;
   width: 100%;
+}
+
+.search-result:hover {
+  background-color: grey;
 }
 
 .stats {
   display: flex;
   height: calc(10vh - 2em);
   padding: 1em;
+  background-color: cornsilk;
 }
 
 .stats__group {
@@ -102,10 +121,27 @@ main {
 
 .day__header {
   display: flex;
+  color: grey;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .day__header--add {
   margin-left: auto;
+}
+
+.day__header--search {
+  display: none;
+  height: 80%;
+  font-size: 0.5em;
+}
+
+.day:hover .day__header--search {
+  display: block;
+}
+
+.day:hover .day__header--calories {
+  display: none;
 }
 
 .day__foods {
@@ -115,12 +151,11 @@ main {
 
 .food {
   display: flex;
-  border-bottom: 1px solid gray;
   padding: 0.5em;
 }
 
 .food:hover {
-  border: 1px solid red;
+  background-color: lightgrey;
 }
 
 .food:hover .food__delete--icon {

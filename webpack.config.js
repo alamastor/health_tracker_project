@@ -29,7 +29,8 @@ module.exports = {
         loaders: [
             {test: /underscore\.js$/, loader: 'expose?_'},
             {test: /\.html$/, loader: 'underscore-template-loader'},
-            {test: /\.css$/, loader: 'style-loader!css-loader'}
+            {test: /\.css$/, loader: 'style-loader!css-loader'},
+            {test: /\.scss$/, loaders: ['style', 'css', 'sass']}
         ]
-    },
+    }
 };
