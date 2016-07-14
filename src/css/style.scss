@@ -1,36 +1,67 @@
+$width: 100%;
+$background-main: snow;
+$nav-color: #333;
+
 body {
   padding: 0;
+  margin: 0;
   display: block;
-  margin: 0 auto;
-  max-width: 600px;
-  background-color: lightgrey;
+  background-color: $background-main;
   font-family: 'Work Sans', sans-serif;
 }
 
+.button {
+  cursor: pointer;
+}
+
+.fade {
+  filter: blur(2px) opacity(50%);
+  pointer-events: none;
+}
+
 nav {
-  background-color: lightblue;
-  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  color: snow;
+  background-color: $nav-color;
   left: 0;
   width: 100vw;
 }
 
-.header {
-  height: 20vh;
-  text-align: center;
-  background-color: cornsilk;
+.nav__title {
+  margin: auto 1em;
+  padding: 0.3em;
+  font-size: 2.5em;
+  font-weight: bold;
 }
 
-.header__title {
-  margin: 0 auto 0.3em auto;
-  padding-top: 1em;
-  font-size: 2.5em;
+.auth {
+  margin-left: auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.auth-username {
+  margin: 2px;
+}
+.auth-button {
+  width: 100%;
+  border: none;
+  color: snow;
+  background-color: $nav-color;
+}
+
+.header {
+  max-width: $width;
+  text-align: center;
+  margin: 0 auto;
 }
 
 main {
   display: flex;
   height: 70vh;
-  width: 100%;
-  background-color: cornsilk;
+  max-width: $width;
+  margin: 0 auto;
 }
 
 .hidden {
@@ -44,9 +75,10 @@ main {
 
 .search-form {
   width: 100%;
-  height: 80%;
+  height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .search-form__input {
@@ -55,6 +87,7 @@ main {
   font-size: 2em;
   border: 0;
   box-shadow: 0 0 1em grey;
+  padding: 0 10px;
 }
 .search-form__button {
   position: relative;
@@ -62,16 +95,16 @@ main {
   width: 20%;
   border: none;
   padding: 0;
-  background-color: chartreuse;
+  background-color: royalblue;
   box-shadow: 0 0 1em grey;
-  font-size: 1em;
+  font-size: 1.5em;
 }
 
 .food-history {
-  width: 100%;
+  width: $width;
   height: 100%;
   overflow-y: scroll;
-  padding-left: 3em;
+  padding: 0 3em;
 }
 
 .search-results {
@@ -84,7 +117,7 @@ main {
   width: 50%;
   opacity: 1;
   background-color: white;
-  box-shadow: 10px 5px 5px black;
+  filter: none;
 }
 
 .search-results__list {
@@ -108,10 +141,13 @@ main {
 }
 
 .stats {
+  width: 100%;
+  height: 2em;
+  margin: auto;
   display: flex;
-  height: calc(10vh - 2em);
-  padding: 1em;
-  background-color: cornsilk;
+  position: absolute;
+  bottom: 0;
+  font-size: 1.5em;
 }
 
 .stats__group {
@@ -123,7 +159,7 @@ main {
   display: flex;
   color: grey;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .day__header--add {
@@ -159,7 +195,7 @@ main {
 }
 
 .food:hover .food__delete--icon {
-    display: block;
+  display: block;
 }
 
 .food__delete--icon {
