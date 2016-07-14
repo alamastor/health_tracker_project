@@ -9,7 +9,8 @@ var AuthView = Backbone.View.extend({
     template: authTemplate,
 
     events: {
-        'click #login': 'doGoogleLogin',
+        'click #google-login': 'doGoogleLogin',
+        'click #anon-login': 'doAnonymousLogin',
         'click #logout': 'doLogout'
     },
 
@@ -20,11 +21,24 @@ var AuthView = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({username: authController.username}));
+        if (authController.loggedIn) {
+            this.$('#logout').removeClass('hidden');
+            this.$('#google-login').addClass('hidden');
+            this.$('#anon-login').addClass('hidden');
+        } else {
+            this.$('#google-login').removeClass('hidden');
+            this.$('#anon-login').removeClass('hidden');
+            this.$('#logout').addClass('hidden');
+        }
         return this;
     },
 
     doGoogleLogin: function() {
         authController.doGoogleLogin();
+    },
+
+    doAnonymousLogin: function() {
+        authController.doAnonymousLogin();
     },
 
     doLogout: function() {

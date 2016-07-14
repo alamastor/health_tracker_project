@@ -8,7 +8,8 @@ var EXAMPLE_DB_URL = '/example/food_history';
 
 var authController = {
 
-    username: 'Example',
+    username: 'Example User',
+    loggedIn: false,
 
     firebaseApp: firebase.initializeApp(tokens.firebase),
 
@@ -20,10 +21,12 @@ var authController = {
         var self = this;
         this.auth.onAuthStateChanged(function(user) {
             if (user) {
+                self.loggedIn = true;
                 dbRef = db.ref(user.uid + '/food_history');
                 self.username = user.displayName;
                 self.foodHistory = new FoodHistory(null, {url: dbRef});
             } else {
+                self.loggedIn = false;
                 dbRef = db.ref(EXAMPLE_DB_URL);
                 self.username = 'Example';
                 self.foodHistory = new FoodHistory(null, {url: dbRef});
@@ -39,6 +42,12 @@ var authController = {
             var uid = result.user.uid;
         }).catch(function(error) {
             console.log(error);
+        });
+    },
+
+    doAnonymousLogin: function() {
+        this.auth.signInAnonymously().catch(function(error) {
+            // TODO: handle errors
         });
     },
 
