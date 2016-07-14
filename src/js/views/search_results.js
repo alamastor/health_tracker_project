@@ -35,6 +35,7 @@ var SearchResultsView = Backbone.View.extend({
 
     cancelSearch: function() {
         this.collection.reset();
+        $('body').unbind('click');
     },
 
     resetSearchResults: function() {
