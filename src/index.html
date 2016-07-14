@@ -4,31 +4,34 @@
   <title>Health Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 </head>
 <body>
-  <nav>
-    <div id="auth"></div>
-  </nav>
-  <header class="header">
-    <h1 class="header__title">Daily Calorie Tracker</h1>
-    <div id="search" class="search">
-      <form id="search-form" class="search-form" action="#">
-        <input id="search-input" class="search-form__input" />
-        <button class="search-form__button">Submit</button>
-      </form>
-    </div>
-  </header>
-  <main>
-    <section id="food-history" class="food-history">
-    </section>
-  </main>
+  <div class="container">
+    <nav>
+      <h1 class="nav__title">Calorie Tracker</h1>
+      <div class="auth" id="auth"></div>
+    </nav>
+    <header class="header">
+      <div id="search" class="search">
+        <form id="search-form" class="search-form" action="#">
+          <input id="search-input" class="search-form__input" placeholder="What did you eat?" />
+          <button class="search-form__button button">Search</button>
+        </form>
+      </div>
+    </header>
+    <main>
+      <section id="food-history" class="food-history">
+      </section>
+    </main>
+    <footer id="stats" class="stats">
+    </footer>
+  </div>
   <section id="search-results" class="search-results hidden">
     <ul id="search-results__list" class="search-results__list">
     </ul>
     <button id="search-results__cancel" class="search-results__cancel">Cancel</button>
   </section>
-  <footer id="stats" class="stats">
-  </footer>
   <script src="js/bundle.js"></script>
 </body>
 </html>

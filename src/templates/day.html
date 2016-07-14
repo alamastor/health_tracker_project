@@ -1,7 +1,7 @@
 <header class="day__header">
   <span class="day__header--date"><%= date %></span>
-  <form class="day__header--add" >
-    <input id="day-food-search" type="text" placeholder="Add Food"/>
+  <form class="day__header--add" action="#">
+    <input id="day-food-search" class="day__header--search" type="text" placeholder="Add Food"/>
   </form>
   <span class="day__header--calories"><% print(Math.round(dayCalories)) %> Cal</span>
 </header>
