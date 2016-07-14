@@ -25,6 +25,7 @@ var SearchResultsView = Backbone.View.extend({
         view.foodHistory = this.foodHistory;
         this.$searchResultsList.append(view.render().el);
         this.$el.removeClass('hidden');
+        $('.container').addClass('fade');
     },
 
     cancelSearch: function() {
@@ -35,6 +36,7 @@ var SearchResultsView = Backbone.View.extend({
         this.$searchResultsList.scrollTop(0);
         this.$el.addClass('hidden');
         this.$searchResultsList.empty();
+        $('.container').removeClass('fade');
     },
 });
 module.exports = SearchResultsView;
