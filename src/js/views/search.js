@@ -23,6 +23,7 @@ var SearchView = Backbone.View.extend({
         var today = new Date();
         today.setHours(0,0,0,0);
         search.search(this.$searchInput.val(), today);
+        this.$searchInput.val('');
     },
 });
 module.exports = SearchView;
