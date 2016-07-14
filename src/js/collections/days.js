@@ -18,7 +18,6 @@ var Days = Backbone.Collection.extend({
 
     initialize: function() {
         this.listenTo(authContoller.foodHistory, 'sync', this.addExistingDays);
-        this.listenTo(authContoller, 'auth_state_changed', this.updateLister);
     },
 
     dateMap: {},

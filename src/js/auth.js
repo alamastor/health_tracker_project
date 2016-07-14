@@ -6,9 +6,12 @@ var FoodHistory = require('./collections/food_history.js');
 var tokens = require('./tokens.js');
 var EXAMPLE_DB_URL = '/example/food_history';
 
+var ANONYMOUS_USERNAME = 'Anonymous User';
+var EXAMPLE_USERNAME = 'Example User';
+
 var authController = {
 
-    username: 'Example User',
+    username: EXAMPLE_USERNAME,
     loggedIn: false,
 
     firebaseApp: firebase.initializeApp(tokens.firebase),
@@ -23,14 +26,17 @@ var authController = {
             if (user) {
                 self.loggedIn = true;
                 dbRef = db.ref(user.uid + '/food_history');
-                self.username = user.displayName;
-                self.foodHistory = new FoodHistory(null, {url: dbRef});
+                if (user.isAnonymous) {
+                    self.username = ANONYMOUS_USERNAME;
+                } else {
+                    self.username = user.displayName;
+                }
             } else {
                 self.loggedIn = false;
                 dbRef = db.ref(EXAMPLE_DB_URL);
-                self.username = 'Example';
-                self.foodHistory = new FoodHistory(null, {url: dbRef});
+                self.username = EXAMPLE_USERNAME;
             }
+            self.foodHistory = new FoodHistory(null, {url: dbRef});
             self.trigger('auth_state_changed');
         });
     },
