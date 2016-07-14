@@ -26,6 +26,11 @@ var SearchResultsView = Backbone.View.extend({
         this.$searchResultsList.append(view.render().el);
         this.$el.removeClass('hidden');
         $('.container').addClass('fade');
+        var self = this;
+        $('body').click(function() {
+            self.cancelSearch();
+            return false;
+        });
     },
 
     cancelSearch: function() {
