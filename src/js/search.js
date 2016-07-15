@@ -2,7 +2,7 @@
 var tokens = require('./tokens.js');
 var searchResults = require('./collections/search_results.js');
 var search = {
-    search: function(searchText, date) {
+    search: function(searchText, date, doneCallback) {
         console.log('executing search');
         $.ajax('https://api.nutritionix.com/v1_1/search/' + searchText, {
                 data: {
@@ -25,12 +25,14 @@ var search = {
                     calories: result.fields.nf_calories,
                     date: date,
                 });
+            doneCallback();
             });
         }).fail(function(textStatus, jqXHR, errorThrown) {
             console.log('search fail');
             console.log(textStatus);
             console.log(jqXHR);
             console.log(errorThrown);
+            doneCallback();
         });
     },
 };

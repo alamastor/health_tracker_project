@@ -11,19 +11,21 @@ var SearchView = Backbone.View.extend({
 
     initialize: function() {
         this.$searchInput = this.$('#search-input');
+        this.$loader = this.$('#loader');
     },
 
     searchSubmit: function(event) {
         // Stop refresh after submit
         event.preventDefault();
-        this.search(this.$searchInput.val());
-    },
-
-    search: function(searchText) {
         var today = new Date();
         today.setHours(0,0,0,0);
-        search.search(this.$searchInput.val(), today);
+        search.search(this.$searchInput.val(), today, this.searchDone.bind(this));
         this.$searchInput.val('');
+        this.$loader.removeClass('hidden');
     },
+
+    searchDone: function() {
+        this.$loader.addClass('hidden');
+    }
 });
 module.exports = SearchView;
