@@ -1,9 +1,10 @@
 $width: 100%;
 $background-main: snow;
 $nav-color: #333;
-$nav-height: 5em;
-$stats-height: 3em;
-$search-height: 4.5em;
+$nav-height: 10vh;
+$stats-height: 7vh;
+$search-height: 8vh;
+$breakpoint: 800px;
 
 body {
   padding: 0;
@@ -25,7 +26,7 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
-  color: snow;
+  color: $background-main;
   background-color: $nav-color;
   left: 0;
   width: 100vw;
@@ -37,6 +38,9 @@ nav {
   padding: 0.3em;
   font-size: 2.5em;
   font-weight: bold;
+  @media (max-width: $breakpoint) {
+    font-size: 1.5em;
+  }
 }
 
 .auth {
@@ -55,7 +59,7 @@ nav {
 .auth-button {
   width: 100%;
   border: none;
-  color: snow;
+  color: $background-main;
   background-color: $nav-color;
 }
 
@@ -70,6 +74,7 @@ main {
   height: calc(100vh - #{$nav-height} - #{$search-height} - #{$stats-height});
   max-width: $width;
   margin: 0 auto;
+  color: $nav-color;
 }
 
 .hidden {
@@ -97,6 +102,9 @@ $search-height: 70%;
   border: 0;
   box-shadow: 0 0 1em grey;
   padding: 0 10px;
+  @media (max-width: $breakpoint) {
+    font-size: 1em;
+  }
 }
 .search-form__button {
   position: relative;
@@ -107,6 +115,7 @@ $search-height: 70%;
   background-color: royalblue;
   box-shadow: 0 0 1em grey;
   font-size: 1.5em;
+  color: $nav-color;
 }
 
 .food-history {
@@ -133,6 +142,8 @@ $search-height: 70%;
   height: 90%;
   overflow-y: scroll;
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .search-results__cancel {
@@ -149,13 +160,28 @@ $search-height: 70%;
   background-color: grey;
 }
 
+.search-result {
+  padding: 0.5em;
+}
+.search-result__container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .stats {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: $stats-height;
-  margin: auto;
+  min-height: $stats-height;
   display: flex;
+  align-items: center;
   font-size: 1.5em;
+  background-color: $nav-color;
+  color: $background-main;
+  bottom: 0;
+  @media (max-width: $breakpoint) {
+    font-size: 0.8em;
+  }
 }
 
 .stats__group {
@@ -214,6 +240,11 @@ $search-height: 70%;
   width: 1em;
 }
 
+.food__name {
+  padding-right: 2em;
+}
+
 .food__calories {
+  min-width: 3.5em;
   margin-left: auto;
 }
