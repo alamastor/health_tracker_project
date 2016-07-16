@@ -43,5 +43,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['clean', 'copy', 'webpack-dev-server:start']);
 
-    grunt.registerTask('build', ['webpack:build']);
+    grunt.registerTask('build', ['clean', 'copy', 'webpack:build']);
 };
