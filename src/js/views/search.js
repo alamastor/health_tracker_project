@@ -12,20 +12,49 @@ var SearchView = Backbone.View.extend({
     initialize: function() {
         this.$searchInput = this.$('#search-input');
         this.$loader = this.$('#loader');
+        this.$errorText = this.$('#error-text');
     },
 
     searchSubmit: function(event) {
+        var self = this;
         // Stop refresh after submit
         event.preventDefault();
         var today = new Date();
         today.setHours(0,0,0,0);
-        search.search(this.$searchInput.val(), today, this.searchDone.bind(this));
-        this.$searchInput.val('');
+        search.search(this.$searchInput.val()).then(function(results) {
+            results.forEach(function(result) {
+                searchResults.create({
+                    name: result.fields.item_name,
+                    brand: result.fields.brand_name,
+                    calories: result.fields.nf_calories,
+                    date: today,
+                });
+            });
+            self.searchDone();
+        }).catch(function(error) {
+            switch (error) {
+                case 'no_results':
+                    self.showNoResults();
+                    break;
+                default:
+                    console.log(error);
+            }
+            self.searchDone();
+        });
         this.$loader.removeClass('hidden');
     },
 
     searchDone: function() {
+        this.$searchInput.val('');
         this.$loader.addClass('hidden');
+    },
+
+    showNoResults: function() {
+        this.$errorText.text('No search results');
+    },
+
+    hideError: function() {
+        this.$errorText.text('');
     }
 });
 module.exports = SearchView;

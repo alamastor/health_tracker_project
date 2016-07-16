@@ -3,8 +3,9 @@ $background-main: snow;
 $nav-color: #333;
 $nav-height: 5rem;
 $stats-height: 3rem;
-$search-height: 4rem;
+$search-height: 6rem;
 $breakpoint: 800px;
+$breakpoint-narrow: 530px;
 
 body {
   padding: 0;
@@ -83,21 +84,23 @@ main {
 
 .search {
   width: 100%;
+  padding: 0 10%;
   height: $search-height;;
 }
 
 .search-form {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1em;
 }
 
-$search-height: 70%;
+$search-height: 50%;
 .search-form__input {
-  width: 60%;
-  height: $search-height;
+  width: 75%;
+  height: 100%;
   font-size: 2em;
   border: 0;
   box-shadow: 0 0 1em grey;
@@ -108,14 +111,18 @@ $search-height: 70%;
 }
 .search-form__button {
   position: relative;
-  height: $search-height;
-  width: 20%;
+  width: 25%;
+  height: 100%;
   border: none;
   padding: 0;
   background-color: royalblue;
   box-shadow: 0 0 1em grey;
   font-size: 1.5em;
   color: $nav-color;
+}
+
+.error-text {
+  color: red;
 }
 
 .food-history {
@@ -136,6 +143,10 @@ $search-height: 70%;
   opacity: 1;
   background-color: white;
   filter: none;
+  @media (max-width: $breakpoint-narrow) {
+    left: 0;
+    width: 100%;
+  }
 }
 
 .search-results__list {
