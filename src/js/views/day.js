@@ -1,6 +1,8 @@
 'use strict';
 var dayTemplate = require('../../templates/day.html');
-var search = require('../search.js');
+var searchController = require('../search.js');
+var searchResults = require('../collections/search_results.js');
+var errorModel = require('../models/error.js');
 var DayView = Backbone.View.extend({
     tagName: 'section',
     className: 'day',
@@ -37,7 +39,9 @@ var DayView = Backbone.View.extend({
             dayCalories: this.model.foods.getTotalCalories(),
             foods: self.model.foods,
         }));
+
         this.$searchInput = this.$('#day-food-search');
+        this.$loader = this.$('#loader');
 
         return this;
     },
@@ -54,9 +58,36 @@ var DayView = Backbone.View.extend({
     },
 
     addFood: function() {
-        search.search(this.$searchInput.val(), this.model.get('date'));
-        this.$searchInput.val('');
+        var self = this;
+        this.$loader.removeClass('hidden');
+        searchController.search(
+            this.$searchInput.val()
+        ).then(function(results) {
+            results.forEach(function(result) {
+                searchResults.create({
+                    name: result.fields.item_name,
+                    brand: result.fields.brand_name,
+                    calories: result.fields.nf_calories,
+                    date: self.model.get('date'),
+                });
+            });
+            self.searchDone();
+        }).catch(function(error) {
+            switch (error) {
+                case 'no_results':
+                    errorModel.set({text: 'No matching foods found'});
+                    break;
+                default:
+                    console.log(error);
+            }
+            self.searchDone();
+        });
         return false;
+    },
+
+    searchDone: function() {
+        this.$searchInput.val('');
+        this.$loader.addClass('hidden');
     },
 });
 module.exports = DayView;

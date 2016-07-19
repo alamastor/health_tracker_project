@@ -5,6 +5,7 @@ var StatsView = require('./views/stats.js');
 var SearchView = require('./views/search.js');
 var SearchResultsView = require('./views/search_results.js');
 var AuthView = require('./views/auth.js');
+var ErrorView = require('./views/error.js');
 var authContoller = require('./auth.js');
 
 new HistoryView();
@@ -12,6 +13,7 @@ new StatsView();
 new SearchView();
 new SearchResultsView();
 new AuthView();
+new ErrorView();
 Backbone.listenTo(authContoller, 'auth_state_changed', function() {
     new HistoryView();
 });

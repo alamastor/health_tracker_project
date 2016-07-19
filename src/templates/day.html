@@ -2,6 +2,9 @@
   <span class="day__header--date"><%= date %></span>
   <form class="day__header--add" action="#" autocomplete="off">
     <input id="day-food-search" class="day__header--search" type="text" placeholder="Add Food"/>
+    <div class="loader-container--small">
+      <div id="loader" class="loader hidden">Loading...</div>
+    </div>
   </form>
   <span class="day__header--calories"><% print(Math.round(dayCalories)) %> Cal</span>
 </header>

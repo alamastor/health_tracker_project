@@ -1,7 +1,8 @@
 'use strict';
 var searchResults = require('../collections/search_results.js');
 var tokens = require('../tokens.js');
-var search = require('../search.js');
+var searchController = require('../search.js');
+var errorModel = require('../models/error.js');
 var SearchView = Backbone.View.extend({
     el: '#search',
 
@@ -21,7 +22,8 @@ var SearchView = Backbone.View.extend({
         event.preventDefault();
         var today = new Date();
         today.setHours(0,0,0,0);
-        search.search(this.$searchInput.val()).then(function(results) {
+        errorModel.set({text: ''});
+        searchController.search(this.$searchInput.val()).then(function(results) {
             results.forEach(function(result) {
                 searchResults.create({
                     name: result.fields.item_name,
@@ -34,7 +36,7 @@ var SearchView = Backbone.View.extend({
         }).catch(function(error) {
             switch (error) {
                 case 'no_results':
-                    self.showNoResults();
+                    errorModel.set({text: 'No matching foods found'});
                     break;
                 default:
                     console.log(error);
@@ -48,13 +50,5 @@ var SearchView = Backbone.View.extend({
         this.$searchInput.val('');
         this.$loader.addClass('hidden');
     },
-
-    showNoResults: function() {
-        this.$errorText.text('No search results');
-    },
-
-    hideError: function() {
-        this.$errorText.text('');
-    }
 });
 module.exports = SearchView;

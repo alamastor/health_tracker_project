@@ -16,17 +16,18 @@
       <form id="search-form" class="search-form" action="#">
         <input id="search-input" class="search-form__input" placeholder="What did you eat?" type="text" autocomplete="off" />
         <button class="search-form__button button">Search</button>
-        <div class="loader-container">
-          <div id="loader" class="loader hidden">Loading...</div>
-        </div>
       </form>
-      <div id="error-text" class="error-text"></div>
+      <div class="loader-container">
+        <div id="loader" class="loader hidden">Loading...</div>
+      </div>
     </div>
     <main>
       <section id="food-history" class="food-history">
       </section>
     </main>
-    <footer id="stats" class="stats">
+    <footer>
+      <div id="error-text" class="error-text"></div>
+      <div id="stats" class="stats"></div>
     </footer>
   </div>
   <section id="search-results" class="search-results hidden">
