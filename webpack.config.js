@@ -23,7 +23,9 @@ module.exports = {
             $: 'jquery',
             _: 'underscore',
             Backbone: 'backbone',
-        })
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.DedupePlugin(),
     ],
     module: {
         loaders: [
@@ -31,6 +33,6 @@ module.exports = {
             {test: /\.html$/, loader: 'underscore-template-loader'},
             {test: /\.css$/, loader: 'style-loader!css-loader'},
             {test: /\.scss$/, loaders: ['style', 'css', 'sass']}
-        ]
+        ],
     }
 };
