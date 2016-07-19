@@ -18,6 +18,9 @@ var SearchResultsView = Backbone.View.extend({
         $('#search-header').click(function() {
             return false;
         });
+        $('#api-link').click(function(e) {
+            e.stopPropagation();
+        });
     },
 
     addSearchResult: function(result) {
