@@ -15,6 +15,9 @@ var SearchResultsView = Backbone.View.extend({
         this.listenTo(this.collection, 'reset', this.resetSearchResults);
 
         this.$searchResultsList = this.$('#search-results__list');
+        $('#search-header').click(function() {
+            return false;
+        });
     },
 
     addSearchResult: function(result) {

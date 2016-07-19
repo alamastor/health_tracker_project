@@ -20,8 +20,9 @@ body {
 }
 
 .fade {
-  filter: blur(2px) opacity(50%);
+  filter: blur(2px) opacity(50%) brightness(20%);
   pointer-events: none;
+  background: black;
 }
 
 nav {
@@ -133,17 +134,24 @@ $search-height: 50%;
   padding: 0 3em;
 }
 
+.search-header {
+  padding: 0.5rem;
+  height: 10%;
+  box-sizing: border-box;
+  margin: 0;
+}
 .search-results {
   position: fixed;
-  top: 20vh;
+  top: 15vh;
   left: 25%;
   z-index: 1;
   margin: 0;
-  height: 50vh;
+  height: 70vh;
   width: 50%;
   opacity: 1;
   background-color: white;
-  filter: none;
+  border: 2px solid $nav-color;
+  box-sizing: border-box;
   @media (max-width: $breakpoint-narrow) {
     left: 0;
     width: 100%;
@@ -151,7 +159,7 @@ $search-height: 50%;
 }
 
 .search-results__list {
-  height: 90%;
+  height: 80%;
   overflow-y: scroll;
   list-style-type: none;
   margin: 0;
@@ -160,7 +168,6 @@ $search-height: 50%;
 
 .search-results__cancel {
   position: absolute;
-  bottom: 0;
   left: 0;
   border: none;
   font-size: 1em;
@@ -168,16 +175,32 @@ $search-height: 50%;
   width: 100%;
 }
 
+.search-result {
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+}
 .search-result:hover {
   background-color: grey;
 }
-
-.search-result {
-  padding: 0.5em;
+.search-result__name {
+  font-weight: bold;
+  margin: 0;
 }
-.search-result__container {
-  display: flex;
-  justify-content: space-between;
+.search-result__brand {
+  margin: 0;
+}
+
+.search-result__cals {
+  min-width: 6em;
+  text-align: right;
+}
+
+.api-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 25%;
 }
 
 .stats {
