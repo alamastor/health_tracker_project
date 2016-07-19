@@ -1,3 +1,8 @@
+/**
+ * AuthController module used to interact with the the Firebase auth system. This
+ * object will emit Backbone event 'auth_state_changed' when on a successfull login
+ * or logout.
+ */
 'use strict';
 var firebase = require('firebase/app');
 require('firebase/auth');
@@ -14,6 +19,7 @@ var authController = {
     username: EXAMPLE_USERNAME,
     loggedIn: false,
 
+    // Required Firebase initialization
     firebaseApp: firebase.initializeApp(tokens.firebase),
 
     initialize: function() {
@@ -22,7 +28,9 @@ var authController = {
         this.foodHistory = new FoodHistory(null, {url: dbRef});
         this.auth = this.firebaseApp.auth();
         var self = this;
+        // Firebase auth callbacks, triggered on successfull login/logout.
         this.auth.onAuthStateChanged(function(user) {
+            // If user this is a login event.
             if (user) {
                 self.loggedIn = true;
                 dbRef = db.ref(user.uid + '/food_history');
@@ -31,6 +39,7 @@ var authController = {
                 } else {
                     self.username = user.displayName;
                 }
+            // Not user, this is a logout event.
             } else {
                 self.loggedIn = false;
                 dbRef = db.ref(EXAMPLE_DB_URL);
@@ -41,23 +50,25 @@ var authController = {
         });
     },
 
+    // Login to Firebase using their Google auth provider.
     doGoogleLogin: function() {
         var provider = new firebase.auth.GoogleAuthProvider();
-        this.auth.signInWithPopup(provider).then(function(result) {
-            // User signed in
-            var uid = result.user.uid;
-        }).catch(function(error) {
-            console.log(error);
-        });
+        // Don't need success/fail handlers, the onAuthStateChanged handler and
+        // Google login window will deal with these.
+        this.auth.signInWithPopup(provider);
     },
 
+    // Login to Firebase anonymously.
     doAnonymousLogin: function() {
+        // Don't need success handlers, the onAuthStateChanged handler deal with
+        // this.
         this.auth.signInAnonymously().catch(function(error) {
             // TODO: handle errors
         });
     },
 
     doLogout: function() {
+        // onAuthStateChanged will catch this.
         this.auth.signOut();
     },
 };
