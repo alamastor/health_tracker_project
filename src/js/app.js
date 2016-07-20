@@ -12,17 +12,18 @@ var AuthView = require('./views/auth.js');
 var ErrorView = require('./views/error.js');
 var authContoller = require('./auth.js');
 
-new HistoryView();
-new StatsView();
-new SearchView();
-new SearchResultsView();
-new AuthView();
-new ErrorView();
-
-// When auth state changes replace the HistoryView with an new one which will have
-// the new users' data.
-Backbone.listenTo(authContoller, 'auth_state_changed', function() {
-    // TODO: Check if I need remove the old HistoryView
+$(function() {
     new HistoryView();
-});
+    new StatsView();
+    new SearchView();
+    new SearchResultsView();
+    new AuthView();
+    new ErrorView();
 
+    // When auth state changes replace the HistoryView with an new one which will have
+    // the new users' data.
+    Backbone.listenTo(authContoller, 'auth_state_changed', function() {
+        // TODO: Check if I need remove the old HistoryView
+        new HistoryView();
+    });
+});
