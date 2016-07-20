@@ -1,3 +1,7 @@
+/**
+ * Days Backbone collection. This the main collection that appears in the app, and will
+ * be populated after the foodHistory collection is fetched from the server.
+ */
 'use strict';
 var authContoller = require('../auth.js');
 var Day = require('../models/day.js');
@@ -6,6 +10,7 @@ var Days = Backbone.Collection.extend({
 
     model: Day,
 
+    // Sort collection by date, newest to oldest.
     comparator: function(first, second) {
         if (first.get('date') < second.get('date')) {
             return 1;
@@ -17,64 +22,75 @@ var Days = Backbone.Collection.extend({
     },
 
     initialize: function() {
-        this.listenTo(authContoller.foodHistory, 'sync', this.addExistingDays);
+        this.listenToOnce(authContoller.foodHistory, 'sync', this.addExistingDays);
     },
 
+    // Maintain a mapping of dates to models, so can call `get` with a date argument
+    // and corresponding model.
     dateMap: {},
 
+    // Add all days in foodHistory to collection
     addExistingDays: function() {
         this.reset();
         var self = this;
+
         var today = new Date();
-        var defaultFirstDay = new Date();
-        defaultFirstDay.setMonth(today.getMonth() - 1);
-        defaultFirstDay.setHours(0,0,0,0);
+        today.setHours(0,0,0,0);
+
+        // If first day in collection is less than one month ago, then just use one
+        // month ago as the first day.
         var firstDay;
-        if (authContoller.foodHistory.length === 0) {
+        if (_.isEmpty(authContoller.foodHistory)) {
+            var defaultFirstDay = new Date();
+            defaultFirstDay.setMonth(today.getMonth() - 1);
             firstDay = defaultFirstDay;
         } else {
             firstDay = authContoller.foodHistory.chain()
                 .min(function(food) {
                     return food.get('date');
-                })
-                .value()
-                .get('date');
+                }).value().get('date');
         }
-        var day = _.min([firstDay, defaultFirstDay]);
-        var days = [];
-        while (day.setHours(0,0,0,0) <= today.setHours(0,0,0,0)) {
-            var dayModel = new Day({'date': day});
-            days.push(dayModel);
-            this.dateMap[new Date(day.setHours(0,0,0,0)).toString()] = dayModel;
+
+        // Add days from first day to now to collection
+        var day = firstDay();
+        while (day <= today) {
+            this.addDay(day);
+            // Increment day
             day = new Date(day.setDate(day.getDate() + 1));
         }
-        this.add(days);
 
+        // Add all foods in foodHistory to their day.
         authContoller.foodHistory.forEach(function(food) {
             var day = self.dateMap[food.get('date').toString()];
             day.foods.add(food);
         });
 
+        // Trigger main load event.
         this.trigger('days_loaded');
+
         this.listenTo(authContoller.foodHistory, 'add', this.addFood);
     },
 
-    addFood: function(food) {
-        var dateStr = food.get('date').toString();
-        if (this.dateMap.hasOwnProperty(dateStr)) {
-            var day = this.dateMap[dateStr];
-            day.foods.add(food);
-        } else {
-            // Rare case where day does not alreay exists, rerender view
-            this.addExistingDays();
-        }
+    // Create a new day model and add it to collection
+    addDay: function(date) {
+        var dayModel = new Day({'date': date});
+        this.add(dayModel);
+        this.dateMap[date.toString()] = dayModel;
+        return dayModel;
     },
 
-    updateLister: function() {
-        this.stopListening();
-
-        this.listenTo(authContoller.foodHistory, 'sync', this.addExistingDays);
-        this.listenTo(authContoller, 'auth_state_changed', this.updateLister);
+    // Called when food added to foodHistory, adding food to corresponding day.
+    addFood: function(food) {
+        var date = food.get('date');
+        var day;
+        if (this.dateMap.hasOwnProperty(date.toString())) {
+            day = this.dateMap[date.toString()];
+        } else {
+            // Rare case where day does not alreay exists, this should only happen
+            // when day changes while using app.
+            day = this.addDay(date);
+        }
+        day.foods.add(food);
     },
 });
 module.exports = Days;
