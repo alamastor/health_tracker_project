@@ -17,10 +17,14 @@ module.exports = function(grunt) {
         webpack: {
             options: webpackConfig,
             build: {
+                plugins: [
+                    new webpack.optimize.UglifyJsPlugin(),
+                    new webpack.optimize.DedupePlugin()
+                ]
             },
             'build-dev': {
                 devtool: 'sourcemap',
-                debug: true
+                debug: true,
             }
         },
         'webpack-dev-server': {

@@ -24,8 +24,6 @@ module.exports = {
             _: 'underscore',
             Backbone: 'backbone',
         }),
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.optimize.DedupePlugin(),
     ],
     module: {
         loaders: [
