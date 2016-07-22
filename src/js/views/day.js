@@ -87,6 +87,7 @@ var DayView = Backbone.View.extend({
 
     searchDone: function() {
         this.$searchInput.val('');
+        this.$searchInput.blur();
         this.$loader.addClass('hidden');
     },
 });
