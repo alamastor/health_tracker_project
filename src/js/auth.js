@@ -25,7 +25,8 @@ var authController = {
     initialize: function() {
         var db = firebase.database();
         var dbRef = db.ref(EXAMPLE_DB_URL);
-        this.foodHistory = new FoodHistory(null, {url: dbRef});
+        this.exampleFoodHistory = new FoodHistory(null, {url: dbRef});
+        this.foodHistory = this.exampleFoodHistory;
         this.auth = this.firebaseApp.auth();
         var self = this;
         // Firebase auth callbacks, triggered on successfull login/logout.
@@ -34,6 +35,7 @@ var authController = {
             if (user) {
                 self.loggedIn = true;
                 dbRef = db.ref(user.uid + '/food_history');
+                self.foodHistory = new FoodHistory(null, {url: dbRef});
                 if (user.isAnonymous) {
                     self.username = ANONYMOUS_USERNAME;
                 } else {
@@ -42,10 +44,9 @@ var authController = {
             // Not user, this is a logout event.
             } else {
                 self.loggedIn = false;
-                dbRef = db.ref(EXAMPLE_DB_URL);
+                self.foodHistory = self.exampleFoodHistory;
                 self.username = EXAMPLE_USERNAME;
             }
-            self.foodHistory = new FoodHistory(null, {url: dbRef});
             self.trigger('auth_state_changed');
         });
     },

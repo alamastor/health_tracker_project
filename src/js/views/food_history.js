@@ -10,7 +10,7 @@ var HistoryView = Backbone.View.extend({
 
         this.$foodHistory = this.$('#food-history');
 
-        this.listenTo(this.collection, 'update', this.render);
+        this.listenTo(this.collection, 'add', this.render);
         this.render();
     },
 
