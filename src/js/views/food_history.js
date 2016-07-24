@@ -6,10 +6,10 @@ var Days = require('../collections/days');
 var DayView = require('./day.js');
 var authContoller = require('../auth.js');
 var HistoryView = Backbone.View.extend({
+    el: '#food-history',
+
     initialize: function() {
         this.collection = new Days();
-
-        this.$foodHistory = this.$('#food-history');
 
         this.listenTo(this.collection, 'add', this.render);
         this.render();
@@ -20,11 +20,11 @@ var HistoryView = Backbone.View.extend({
         // Clear and rerender when a new day is added. After initial load this
         // should only occur when the day changes while use has app open, so doing
         // a full reload is not a problem.
-        this.$foodHistory.empty();
+        this.$el.empty();
 
         this.collection.forEach(function(day) {
             var view = new DayView({model: day});
-            self.$foodHistory.append(view.render().el);
+            self.$el.append(view.render().el);
         });
     },
 });
