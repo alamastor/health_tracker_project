@@ -92,8 +92,7 @@ var DayView = Backbone.View.extend({
                     errorModel.set({text: 'No matching foods found'});
                     break;
                 default:
-                    // TODO: Handle other errors
-                    console.log(error);
+                    errorModel.set({text: 'Unable to connect to nutritionix.com'});
             }
             self.searchDone();
         });

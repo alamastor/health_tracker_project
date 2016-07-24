@@ -8,11 +8,12 @@ var firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 var FoodHistory = require('./collections/food_history.js');
+var errorModel = require('./models/error.js');
 var tokens = require('./tokens.js');
-var EXAMPLE_DB_URL = '/example/food_history';
 
-var ANONYMOUS_USERNAME = 'Anonymous User';
+var EXAMPLE_DB_URL = '/example/food_history';
 var EXAMPLE_USERNAME = 'Example User';
+var ANONYMOUS_USERNAME = 'Anonymous User';
 
 var authController = {
 
@@ -64,7 +65,7 @@ var authController = {
         // Don't need success handlers, the onAuthStateChanged handler deal with
         // this.
         this.auth.signInAnonymously().catch(function(error) {
-            // TODO: handle errors
+            errorModel.set({text: 'Unable to login'});
         });
     },
 

@@ -22,21 +22,13 @@ var searchController = {
                         appKey: tokens.nutritionix.key,
                     }
             }).done(function(data, textStatus, jqXHR) {
-                console.log('search done');
-                console.log(data);
-                console.log(textStatus);
-                console.log(jqXHR);
                 if (data.hits.length === 0) {
                     reject('no_results');
                 } else {
                     resolve(data.hits);
                 }
             }).fail(function(textStatus, jqXHR, errorThrown) {
-                // TODO: Handle errors properly (with a reject)
-                console.log('search fail');
-                console.log(textStatus);
-                console.log(jqXHR);
-                console.log(errorThrown);
+                reject(textStatus);
             });
         });
         return promise;
