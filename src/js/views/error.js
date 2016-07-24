@@ -3,7 +3,7 @@
  */
 'use strict';
 var errorModel = require('../models/error.js');
-var errorView = Backbone.View.extend({
+var ErrorView = Backbone.View.extend({
     el: '#error-text',
 
     initialize: function() {
@@ -15,4 +15,4 @@ var errorView = Backbone.View.extend({
     },
 });
 
-module.exports = errorView;
+module.exports = ErrorView;
