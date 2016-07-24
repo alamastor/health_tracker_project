@@ -16,6 +16,7 @@ module.exports = {
             underscore: bowerPath('underscore/underscore.js'),
             backbone: bowerPath('backbone/backbone.js'),
             backbonefire: bowerPath('backbonefire/dist/backbonefire.js'),
+            promise: bowerPath('es6-promise/promise.min.js'),
         }
     },
     plugins: [

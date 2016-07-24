@@ -3,7 +3,7 @@
  */
 'use strict';
 var tokens = require('./tokens.js');
-// TODO: add promises polyfill & remove Promises from jshint
+var Promise = require('promise').Promise;
 var searchController = {
     /**
      * Send search to Nutrionix API with searchText argument as the query, returning
