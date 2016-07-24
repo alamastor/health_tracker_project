@@ -1,3 +1,6 @@
+/**
+ * Backbone view for current login state.
+ */
 'use strict';
 var tokens = require('../tokens.js');
 var authController = require('../auth.js');
@@ -21,6 +24,7 @@ var AuthView = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({username: authController.username}));
+        // Change state based whether use is logged in or not.
         if (authController.loggedIn) {
             this.$('#logout').removeClass('hidden');
             this.$('#google-login').addClass('hidden');
@@ -33,10 +37,16 @@ var AuthView = Backbone.View.extend({
         return this;
     },
 
+    /**
+     * Login with a Google account.
+     */
     doGoogleLogin: function() {
         authController.doGoogleLogin();
     },
 
+    /**
+     * Do Firebase anonymous login.
+     */
     doAnonymousLogin: function() {
         authController.doAnonymousLogin();
     },

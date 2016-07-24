@@ -1,3 +1,6 @@
+/**
+ * A Backbone view for displaying the food history stats.
+ */
 'use strict';
 var authController = require('../auth.js');
 var statsTemplate = require('../../templates/stats.html');
@@ -13,6 +16,10 @@ var StatsView = Backbone.View.extend({
         this.listenTo(this.collection, 'update', this.render);
     },
 
+    /**
+     * When the user changes a new FoodHistory collection is created, need to
+     * listen to that and stop listenting to the old one.
+     */
     updateCollection: function() {
         this.stopListening(this.collection);
 

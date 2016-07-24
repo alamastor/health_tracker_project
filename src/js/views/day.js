@@ -1,3 +1,6 @@
+/**
+ * A Backbone view for rendering a one day in the user's food history.
+ */
 'use strict';
 var dayTemplate = require('../../templates/day.html');
 var searchController = require('../search.js');
@@ -19,13 +22,15 @@ var DayView = Backbone.View.extend({
     template: dayTemplate,
 
     render: function() {
+        // If day is today or yesterday, then use that as title, otherwise just use
+        // date.
         var self = this;
-        var dateStr;
         var today = new Date();
         today.setHours(0,0,0,0);
         var yesterday = new Date();
         yesterday.setDate(today.getDate() - 1);
         yesterday.setHours(0,0,0,0);
+        var dateStr;
         if (this.model.get('date').valueOf() == today.valueOf()) {
             dateStr = 'Today';
         } else if (this.model.get('date').valueOf() == yesterday.valueOf()) {
@@ -34,6 +39,7 @@ var DayView = Backbone.View.extend({
             var dateSplit = this.model.get('date').toDateString().split(' ');
             dateStr = dateSplit[0] + ', ' + dateSplit[1] + ' ' + dateSplit[2];
         }
+
         this.$el.html(this.template({
             date: dateStr,
             dayCalories: this.model.foods.getTotalCalories(),
@@ -46,8 +52,13 @@ var DayView = Backbone.View.extend({
         return this;
     },
 
-    delete: function(e) {
-        var foodName = e.target.parentElement.parentElement.querySelector('.food__name').textContent;
+    /**
+     * Delete a food.
+     */
+    delete: function(event) {
+        var foodElement = event.target.parentElement.parentElement;
+        var foodName = foodElement.querySelector('.food__name').textContent;
+        // Match food model to the text in element associated with the event.
         // Use for instead of forEach because breaking is required
         for (var i = 0; i < this.model.foods.length; i++) {
             if (this.model.foods.models[i].get('name') == foodName) {
@@ -57,6 +68,9 @@ var DayView = Backbone.View.extend({
         }
     },
 
+    /**
+     * Submit a food search and add result to search results collection.
+     */
     addFood: function() {
         var self = this;
         this.$loader.removeClass('hidden');
@@ -78,6 +92,7 @@ var DayView = Backbone.View.extend({
                     errorModel.set({text: 'No matching foods found'});
                     break;
                 default:
+                    // TODO: Handle other errors
                     console.log(error);
             }
             self.searchDone();
@@ -85,6 +100,9 @@ var DayView = Backbone.View.extend({
         return false;
     },
 
+    /**
+     * Clean up view after a search completes.
+     */
     searchDone: function() {
         this.$searchInput.val('');
         this.$searchInput.blur();

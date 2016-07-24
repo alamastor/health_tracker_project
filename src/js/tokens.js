@@ -1,3 +1,8 @@
+/**
+ * API tokens for Firebase and Nutritionix. This is bad practice, on a real project
+ * they should be kept on the the server, and out of version control, with API
+ * calls also made server side, but this is a front end only project.
+ */
 'use strict';
 var tokens = {
     nutritionix: {
