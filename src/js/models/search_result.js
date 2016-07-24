@@ -8,6 +8,8 @@ var SearchResult = Backbone.Model.extend({
         brand: '',
         calories: '',
     },
+
+    sync: function() {},
 });
 
 module.exports = SearchResult;
