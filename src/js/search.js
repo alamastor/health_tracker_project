@@ -12,7 +12,7 @@ var searchController = {
      */
     search: function(searchText) {
         var promise = new Promise(function(resolve, reject) {
-            $.ajax('https://api.nutritionix.com/v1_1/search/' + searchText, {
+            $.ajax(tokens.nutritionix.url + searchText, {
                     data: {
                         results: '0:20',
                         cal_min: '0',

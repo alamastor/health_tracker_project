@@ -6,6 +6,7 @@
 'use strict';
 var tokens = {
     nutritionix: {
+        url: 'https://api.nutritionix.com/v1_1/search/',
         id: '21f75ade',
         key: 'e01a63a7b8e2dba4b187ce386582689e',
     },
