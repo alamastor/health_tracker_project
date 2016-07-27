@@ -2,14 +2,14 @@
  * Main Backbone view for the app, shows all the days in the users history.
  */
 'use strict';
-var Days = require('../collections/days');
+var days = require('../collections/days');
 var DayView = require('./day.js');
 var authContoller = require('../auth.js');
 var HistoryView = Backbone.View.extend({
     el: '#food-history',
 
     initialize: function() {
-        this.collection = new Days();
+        this.collection = days;
 
         this.listenTo(this.collection, 'add', this.render);
         this.render();

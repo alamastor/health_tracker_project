@@ -1,5 +1,5 @@
 /**
- * Days Backbone collection. This the main collection that appears in the app, and will
+ * Singleton days Backbone collection. This the main collection that appears in the app, and will
  * be populated after the foodHistory collection is fetched from the server.
  */
 'use strict';
@@ -22,6 +22,10 @@ var Days = Backbone.Collection.extend({
     },
 
     initialize: function() {
+        // TODO: Clean this up
+        this.stopListening();
+        this.reset();
+
         // Add 1 month as a minimum setup
         var today = new Date();
         today.setHours(0,0,0,0);
@@ -34,6 +38,7 @@ var Days = Backbone.Collection.extend({
             day = new Date(day.setDate(day.getDate() + 1));
         }
 
+        this.listenTo(authController, 'auth_state_changed', this.initialize);
         this.listenTo(authController.foodHistory, 'add', this.addFood);
         var self = this;
         authController.foodHistory.forEach(function(food) {
@@ -67,4 +72,6 @@ var Days = Backbone.Collection.extend({
         day.foods.add(food);
     },
 });
-module.exports = Days;
+
+var days = new Days();
+module.exports = days;
