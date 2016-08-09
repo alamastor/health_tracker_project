@@ -20,7 +20,6 @@ var ChartView = Backbone.View.extend({
 
     update: function() {
         this.$container.empty();
-
         var chart = d3.select(this.$container.get(0));
 
         var margin = {top: 0, right: 50, bottom: 35, left: 0};
@@ -115,7 +114,7 @@ var ChartView = Backbone.View.extend({
             .attr('transform', 'rotate(-70)');
 
         var colWidth = 10;
-        scrollGrp.selectAll('rect')
+        scrollGrp.selectAll('rect.chart__col')
             .data(this.collection.models)
             .enter()
             .append('rect')
