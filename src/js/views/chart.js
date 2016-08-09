@@ -21,7 +21,7 @@ var ChartView = Backbone.View.extend({
     update: function() {
         this.$container.empty();
 
-        var chart = d3.select('#chart-container');
+        var chart = d3.select(this.$container.get(0));
 
         var margin = {top: 0, right: 50, bottom: 35, left: 0};
         var height = parseFloat(chart.style('height')) - margin.top - margin.bottom;
@@ -140,17 +140,15 @@ var ChartView = Backbone.View.extend({
     // TODO: Call this render and do it in appview & make render update or something
     render: function() {
         this.$el.html(this.template());
-        $('body').append(this.$el);
         this.$container = this.$('#chart-container');
 
         this.listenTo(this.collection, 'add', this.update);
         this.update();
 
-        //this.$el.click(function() {});
+        return this.$el;
     },
 
     close: function() {
-        this.$el.addClass('hidden');
         this.trigger('close');
     }
 });

@@ -76,8 +76,7 @@ nav {
 }
 
 main {
-  display: flex;
-  height: calc(100vh - #{$nav-height} - #{$search-height} - #{$stats-height});
+  height: calc(100vh - #{$nav-height} - #{$stats-height});
   max-width: $width;
   margin: 0 auto;
   color: $nav-color;
@@ -103,7 +102,6 @@ main {
   margin: 1rem 0;
 }
 
-$search-height: 50%;
 .search-form__input {
   width: 75%;
   height: 100%;
@@ -133,9 +131,10 @@ $search-height: 50%;
 
 .food-history {
   width: $width;
-  height: 100%;
+  height: calc(100% - #{$search-height});
   overflow-y: scroll;
   padding: 0 3em;
+  box-sizing: border-box;
 }
 
 .search-header {

@@ -10,13 +10,13 @@ var AppView = Backbone.View.extend({
     openChart: function() {
         this.chartView = new ChartView();
         this.listenTo(this.chartView, 'close', this.chartClose);
-        this.chartView.render();
-        $('.container').addClass('fade');
+        this.$el.append(this.chartView.render());
+        this.chartView.update();
+        $('main').addClass('fade');
     },
 
     chartClose: function() {
-        $('.container').removeClass('fade');
-        $('.container').unbind('click');
+        $('main').removeClass('fade');
         this.chartView.remove();
     },
 });
