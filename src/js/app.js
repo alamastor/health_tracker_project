@@ -7,7 +7,6 @@ require('../css/style.scss');
 var HistoryView = require('./views/food_history.js');
 var StatsView = require('./views/stats.js');
 var SearchView = require('./views/search.js');
-var SearchResultsView = require('./views/search_results.js');
 var AuthView = require('./views/auth.js');
 var ErrorView = require('./views/error.js');
 var authContoller = require('./auth.js');
@@ -18,7 +17,6 @@ $(function() {
     var historyView = new HistoryView();
     new StatsView();
     new SearchView();
-    new SearchResultsView();
     new AuthView();
     new ErrorView();
 

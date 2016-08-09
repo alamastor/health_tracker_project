@@ -17,8 +17,9 @@ var SearchResultsView = Backbone.View.extend({
         this.listenTo(this.collection, 'add', this.addSearchResult);
         this.listenTo(this.collection, 'reset', this.hideView);
 
-        this.$searchResultsList = this.$('#search-results__list');
-
+        this.$resultsList = this.$('#search-results__list');
+        this.$header = $('#search-header');
+        this.$apiLink = $('#api-link');
     },
 
     /**
@@ -30,7 +31,7 @@ var SearchResultsView = Backbone.View.extend({
             model: result,
         });
         view.foodHistory = this.foodHistory;
-        this.$searchResultsList.append(view.render().el);
+        this.$resultsList.append(view.render().el);
 
         this.showView();
     },
@@ -40,23 +41,17 @@ var SearchResultsView = Backbone.View.extend({
      */
     showView: function() {
         this.$el.removeClass('hidden');
-        $('.container').addClass('fade');
         var self = this;
 
-        // Add click handler to cancel search on click which aren't on one of the
-        // buttons in this view.
-        $('body').click(function() {
-            self.cancelSearch();
-            return false;
-        });
         // Prevent click handling on these elements, as the body click handler
         // should not be called for clicks on these elements.
-        $('#search-header').click(function() {
+        this.$header.click(function() {
             return false;
         });
-        $('#api-link').click(function(e) {
+        this.$apiLink.click(function(e) {
             e.stopPropagation();
         });
+        this.trigger('open');
     },
 
     /**
@@ -70,12 +65,10 @@ var SearchResultsView = Backbone.View.extend({
      * Make the view invisble.
      */
     hideView: function() {
-        this.$searchResultsList.scrollTop(0);
+        this.$resultsList.scrollTop(0);
         this.$el.addClass('hidden');
-        this.$searchResultsList.empty();
-        $('.container').removeClass('fade');
-        $('body').unbind('click');
-        $('#search-header').unbind('click');
+        this.$resultsList.empty();
+        this.$header.unbind('click');
     },
 });
 
