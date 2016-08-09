@@ -358,6 +358,10 @@ svg {
   fill: lightgrey;
 }
 
+.chart__axis--label {
+  font-size: 0.9em;
+}
+
 .axis path,
 .axis line {
   fill: none;

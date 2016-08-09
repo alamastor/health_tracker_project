@@ -15,6 +15,7 @@ var ChartView = Backbone.View.extend({
         this.$container = this.$('#chart-container');
         this.collection = days;
         this.listenTo(this.collection, 'update', this.update);
+        $(window).on('resize', this.update.bind(this));
         this.update();
     },
 
@@ -95,6 +96,7 @@ var ChartView = Backbone.View.extend({
                 .attr('width', margin.right)
                 .call(yAxis);
         yAxisEle.append('text')
+            .classed('chart__axis--label', true)
             .attr('dx', '-120')
             .attr('dy', '55')
             .attr('transform', 'rotate(-90)')
