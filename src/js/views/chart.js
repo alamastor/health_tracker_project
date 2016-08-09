@@ -3,19 +3,19 @@ var d3 = require('d3');
 var authController = require('../auth.js');
 var days = require('../collections/days');
 var util = require('../util.js');
-var chartTemplate = require('../../templates/chart.html');
+var authController = require('../auth.js');
 var ChartView = Backbone.View.extend({
-    id: 'chart',
-    className: 'chart',
+    el: '#chart',
 
     events: {
         'click': 'close',
     },
 
-    template: chartTemplate,
-
     initialize: function() {
+        this.$container = this.$('#chart-container');
         this.collection = days;
+        this.listenTo(this.collection, 'update', this.update);
+        this.update();
     },
 
     update: function() {
@@ -135,17 +135,6 @@ var ChartView = Backbone.View.extend({
                 return 'translate(' + (width-xScaleWidth-colWidth/2) + ',' +  (height+margin.top-(height-yScale(d.getTotalCalories()))) + ')';
             })
             ;
-    },
-
-    // TODO: Call this render and do it in appview & make render update or something
-    render: function() {
-        this.$el.html(this.template());
-        this.$container = this.$('#chart-container');
-
-        this.listenTo(this.collection, 'add', this.update);
-        this.update();
-
-        return this.$el;
     },
 
     close: function() {

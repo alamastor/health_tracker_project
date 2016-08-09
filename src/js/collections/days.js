@@ -70,6 +70,8 @@ var Days = Backbone.Collection.extend({
             day = this.addDay(date);
         }
         day.foods.add(food);
+        // Need to trigger manually here so listeners are notified food has changed.
+        this.trigger('update');
     },
 });
 
