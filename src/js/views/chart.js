@@ -8,7 +8,7 @@ var ChartView = Backbone.View.extend({
     el: '#chart',
 
     events: {
-        'click': 'close',
+        'click #chart-cancel': 'close',
     },
 
     initialize: function() {
@@ -22,7 +22,7 @@ var ChartView = Backbone.View.extend({
         this.$container.empty();
         var chart = d3.select(this.$container.get(0));
 
-        var margin = {top: 0, right: 50, bottom: 35, left: 0};
+        var margin = {top: 0, right: 65, bottom: 35, left: 0};
         var height = parseFloat(chart.style('height')) - margin.top - margin.bottom;
         var width = parseFloat(chart.style('width')) - margin.left - margin.right;
 
@@ -95,8 +95,8 @@ var ChartView = Backbone.View.extend({
                 .attr('width', margin.right)
                 .call(yAxis);
         yAxisEle.append('text')
-            .attr('dx', '-150')
-            .attr('dy', '40')
+            .attr('dx', '-120')
+            .attr('dy', '55')
             .attr('transform', 'rotate(-90)')
             .text('Total Calories');
 
@@ -129,11 +129,12 @@ var ChartView = Backbone.View.extend({
             })
             .attr('width', colWidth + 'px')
             .attr('transform', function(d) {
-                // Y scale is revesed, to translate down from top by differnce
+                // Y scale is reversed, to translate down from top by differnce
                 // between area height and bar height.
-                return 'translate(' + (width-xScaleWidth-colWidth/2) + ',' +  (height+margin.top-(height-yScale(d.getTotalCalories()))) + ')';
-            })
-            ;
+                var horizOffset = width - xScaleWidth - colWidth/2;
+                var vertOffset = height + margin.top - (height - yScale(d.getTotalCalories()));
+                return 'translate(' + horizOffset + ',' +  vertOffset + ')';
+            });
     },
 
     close: function() {

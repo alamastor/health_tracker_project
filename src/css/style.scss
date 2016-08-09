@@ -48,9 +48,20 @@ nav {
     font-size: 1.5em;
   }
 }
+.nav__button {
+  font-size: 1em;
+  background-color: $nav-color;
+  color: $background-main;
+  border: none;
+  margin-left: auto;
+  padding: 1em;
+}
+
+.nav__border--left {
+  border-left: 1px solid lighten( $nav-color, 20% );
+}
 
 .auth {
-  margin-left: auto;
   padding: 1em;
   display: flex;
   flex-direction: column;
@@ -325,6 +336,7 @@ main {
   top: 0;
   border: none;
   background-color: white;
+  font-size: 1.5em;
 }
 
 .chart__scroll {
