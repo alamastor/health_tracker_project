@@ -23,6 +23,13 @@ var Day = Backbone.Model.extend({
         // Associate a collection of foods with the day.
         this.foods = new Foods();
     },
+
+    /**
+    * Get total calories of this day's food collection.
+    */
+    getTotalCalories: function() {
+        return this.foods.getTotalCalories();
+    },
 });
 
 module.exports = Day;

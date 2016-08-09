@@ -3,6 +3,7 @@
  */
 'use strict';
 var authController = require('../auth.js');
+var ChartView = require('./chart.js');
 var statsTemplate = require('../../templates/stats.html');
 var StatsView = Backbone.View.extend({
     el: '#stats',

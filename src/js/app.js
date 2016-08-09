@@ -11,8 +11,10 @@ var SearchResultsView = require('./views/search_results.js');
 var AuthView = require('./views/auth.js');
 var ErrorView = require('./views/error.js');
 var authContoller = require('./auth.js');
+var AppView = require('./views/app.js');
 
 $(function() {
+    new AppView();
     var historyView = new HistoryView();
     new StatsView();
     new SearchView();
@@ -23,7 +25,7 @@ $(function() {
     // When auth state changes replace the HistoryView with an new one which will have
     // the new users' data.
     Backbone.listenTo(authContoller, 'auth_state_changed', function() {
-        // Call stop listening to allow garbage collection of view, can't call remove
+        // Call stop listening to allow garbage collection of views, can't call remove
         // because it will also remove the view.
         historyView.stopListening();
         historyView = new HistoryView();

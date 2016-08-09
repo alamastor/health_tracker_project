@@ -1,11 +1,15 @@
-$width: 100%;
 $background-main: snow;
 $nav-color: #333;
+$highlight-color: royalblue;
+
+$width: 100%;
 $nav-height: 5rem;
 $stats-height: 3rem;
 $search-height: 6rem;
+
 $breakpoint: 800px;
 $breakpoint-narrow: 530px;
+
 
 body {
   padding: 0;
@@ -85,7 +89,7 @@ main {
 
 .search {
   width: 80%;
-  margin: 0 calc(10% - 1em) 0 10%;
+  padding: 0 calc(10% - 1em) 0 10%;
   height: $search-height;
   display: flex;
 }
@@ -117,7 +121,7 @@ $search-height: 50%;
   height: 100%;
   border: none;
   padding: 0;
-  background-color: royalblue;
+  background-color: $highlight-color;
   box-shadow: 0 0 1em grey;
   font-size: 1.5em;
   color: $nav-color;
@@ -292,6 +296,61 @@ $search-height: 50%;
   min-width: 4em;
   margin-left: auto;
   text-align: right;
+}
+
+.chart {
+  background-color: white;
+  border: 2px solid $nav-color;
+  height: 50vh;
+  width: 50vw;
+  position: absolute;
+  top: 25vh;
+  left: 25vw;
+  padding: 15px 15px 15px 15px;
+  box-sizing: border-box;
+  @media (max-width: $breakpoint-narrow) {
+    left: 0;
+    width: 100%;
+  }
+}
+
+.chart__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.chart__cancel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background-color: white;
+}
+
+.chart__scroll {
+  fill: none;
+}
+
+.chart__col {
+  fill: $highlight-color;
+  :hover {
+    fill: red;
+  }
+}
+
+svg {
+  shape-rendering: crispEdges;
+}
+
+.chart-rect {
+  fill: lightgrey;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #fff;
 }
 
 /*Spinner from http://projects.lukehaas.me/css-loaders/ */

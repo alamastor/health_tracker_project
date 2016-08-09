@@ -27,6 +27,7 @@
     "jquery": "^2.2.3",
     "firebase": "2",
     "backbonefire": "https://github.com/tryoften/backbonefire.git#32513af",
-    "es6-promise": "^3.2.2"
+    "es6-promise": "^3.2.2",
+    "d3": "^4.1.1"
   }
 }

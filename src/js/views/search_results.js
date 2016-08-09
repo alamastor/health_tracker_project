@@ -64,7 +64,6 @@ var SearchResultsView = Backbone.View.extend({
      */
     cancelSearch: function() {
         this.collection.reset();
-        $('body').unbind('click');
     },
 
     /**
@@ -75,6 +74,8 @@ var SearchResultsView = Backbone.View.extend({
         this.$el.addClass('hidden');
         this.$searchResultsList.empty();
         $('.container').removeClass('fade');
+        $('body').unbind('click');
+        $('#search-header').unbind('click');
     },
 });
 

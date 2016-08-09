@@ -17,6 +17,7 @@ module.exports = {
             backbone: bowerPath('backbone/backbone.js'),
             backbonefire: bowerPath('backbonefire/dist/backbonefire.js'),
             promise: bowerPath('es6-promise/promise.min.js'),
+            d3: bowerPath('d3/d3.min.js'),
         }
     },
     plugins: [
