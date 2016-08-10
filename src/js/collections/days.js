@@ -22,7 +22,6 @@ var Days = Backbone.Collection.extend({
     },
 
     initialize: function() {
-        // TODO: Clean this up
         this.stopListening();
         this.reset();
 
