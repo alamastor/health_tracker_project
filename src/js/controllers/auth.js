@@ -7,9 +7,9 @@
 var firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
-var FoodHistory = require('./collections/food_history.js');
-var errorModel = require('./models/error.js');
-var tokens = require('./tokens.js');
+var FoodHistory = require('../collections/food_history.js');
+var errorModel = require('../models/error.js');
+var tokens = require('../lib/tokens.js');
 
 var EXAMPLE_DB_URL = '/example/food_history';
 var EXAMPLE_USERNAME = 'Example User';

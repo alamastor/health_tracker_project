@@ -2,7 +2,7 @@
  * Module for handling food searches to Nutritionix API.
  */
 'use strict';
-var tokens = require('./tokens.js');
+var tokens = require('../lib/tokens.js');
 var Promise = require('promise').Promise;
 var searchController = {
     /**

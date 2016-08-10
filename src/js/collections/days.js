@@ -3,7 +3,7 @@
  * be populated after the foodHistory collection is fetched from the server.
  */
 'use strict';
-var authController = require('../auth.js');
+var authController = require('../controllers/auth.js');
 var Day = require('../models/day.js');
 var Days = Backbone.Collection.extend({
     sync: function() {},

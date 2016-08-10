@@ -3,10 +3,9 @@
  */
 'use strict';
 var d3 = require('d3');
-var authController = require('../auth.js');
 var days = require('../collections/days');
-var util = require('../util.js');
-var authController = require('../auth.js');
+var util = require('../lib/util.js');
+var authController = require('../controllers/auth.js');
 var ChartView = Backbone.View.extend({
     el: '#chart',
 

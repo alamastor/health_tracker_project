@@ -3,7 +3,7 @@
  */
 'use strict';
 var dayTemplate = require('../../templates/day.html');
-var searchController = require('../search.js');
+var searchController = require('../controllers/search.js');
 var searchResults = require('../collections/search_results.js');
 var errorModel = require('../models/error.js');
 var DayView = Backbone.View.extend({

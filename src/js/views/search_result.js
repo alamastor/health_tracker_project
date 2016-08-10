@@ -4,7 +4,7 @@
 'use strict';
 var searchResultTemplate = require('../../templates/search_result.html');
 var searchResults = require('../collections/search_results.js');
-var authContoller = require('../auth.js');
+var authContoller = require('../controllers/auth.js');
 var SearchResultView = Backbone.View.extend({
     tagName: 'li',
     className: 'search-result',

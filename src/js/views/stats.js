@@ -2,7 +2,7 @@
  * A Backbone view for displaying the food history stats.
  */
 'use strict';
-var authController = require('../auth.js');
+var authController = require('../controllers/auth.js');
 var ChartView = require('./chart.js');
 var statsTemplate = require('../../templates/stats.html');
 var StatsView = Backbone.View.extend({

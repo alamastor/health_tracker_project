@@ -4,8 +4,8 @@
  */
 'use strict';
 var searchResults = require('../collections/search_results.js');
-var tokens = require('../tokens.js');
-var searchController = require('../search.js');
+var tokens = require('../lib/tokens.js');
+var searchController = require('../controllers/search.js');
 var errorModel = require('../models/error.js');
 var SearchView = Backbone.View.extend({
     el: '#search',

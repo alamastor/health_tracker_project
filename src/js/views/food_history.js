@@ -4,7 +4,7 @@
 'use strict';
 var days = require('../collections/days');
 var DayView = require('./day.js');
-var authContoller = require('../auth.js');
+var authContoller = require('../controllers/auth.js');
 var HistoryView = Backbone.View.extend({
     el: '#food-history',
 

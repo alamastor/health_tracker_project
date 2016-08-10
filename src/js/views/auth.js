@@ -2,10 +2,9 @@
  * Backbone view for current login state.
  */
 'use strict';
-var tokens = require('../tokens.js');
-var authController = require('../auth.js');
+var tokens = require('../lib/tokens.js');
+var authController = require('../controllers/auth.js');
 var authTemplate = require('../../templates/auth.html');
-var authController = require('../auth.js');
 var AuthView = Backbone.View.extend({
     el: '#auth',
 
