@@ -9,6 +9,7 @@ Provisioning a new site
 * bower
 * grunt-cli
 * webpack
+* node-sass
 
 ## Nginx Virtual Host config
 
