@@ -1,3 +1,6 @@
+/**
+ * A Backbone view for displaying a d3 chart of food history.
+ */
 'use strict';
 var d3 = require('d3');
 var authController = require('../auth.js');
@@ -14,12 +17,15 @@ var ChartView = Backbone.View.extend({
     initialize: function() {
         this.$container = this.$('#chart-container');
         this.collection = days;
-        this.listenTo(this.collection, 'update', this.update);
-        $(window).on('resize', this.update.bind(this));
-        this.update();
+        this.listenTo(this.collection, 'update', this.render);
+
+        // Make responsive.
+        $(window).on('resize', this.render.bind(this));
+
+        this.render();
     },
 
-    update: function() {
+    render: function() {
         this.$container.empty();
         var chart = d3.select(this.$container.get(0));
 
@@ -27,6 +33,7 @@ var ChartView = Backbone.View.extend({
         var height = parseFloat(chart.style('height')) - margin.top - margin.bottom;
         var width = parseFloat(chart.style('width')) - margin.left - margin.right;
 
+        // Set minimum to 100 if no data.
         var yMax;
         if (this.collection.isEmpty()) {
             yMax = 100;
@@ -39,11 +46,13 @@ var ChartView = Backbone.View.extend({
             yMax = 100;
         }
 
+        // y-axis d3 scale.
         var yScale = d3.scaleLinear()
             .domain([yMax * 1.5, 0])
             .range([0, height]);
         var yAxis = d3.axisRight(yScale);
 
+        // Calculate days range for x-axis.
         var firstTime = new Date(this.collection.first().get('date'));
         firstTime.setHours(12);
         var lastTime = new Date(this.collection.last().get('date'));
@@ -58,17 +67,23 @@ var ChartView = Backbone.View.extend({
             .ticks(d3.timeDay, 1)
             .tickSize(-height*1.5);
 
+        // SVG element containing scrolling elements.
         var scrollGrp = chart.append('svg')
             .attr('width', width)
             .attr('height', height + margin.bottom + margin.top)
             .append('g');
 
+        /*
+         * Scrolling controller.
+         */
+        // Variables to handle offsets from scrolling outside bounds.
         var previousXPos = 0;
         var previousXTrans = 0;
         var zoom = d3.zoom()
             .on('zoom', function() {
                 var transform = d3.event.transform;
                 var x = previousXPos + (transform.x - previousXTrans);
+                // Bound scrolling area to limits of the axis.
                 if (x < 0) {
                     x = 0;
                 } else if (x > xScaleWidth-width) {
@@ -79,14 +94,17 @@ var ChartView = Backbone.View.extend({
                 previousXPos = x;
             });
 
+        // Add scroller to chart.
         chart.call(zoom);
 
+        // Background box for chart.
         scrollGrp.append('rect')
             .classed('chart-rect', true)
             .attr('width', xScaleWidth)
             .attr('height', height)
             .attr('transform', 'translate(' + (width-xScaleWidth) + ',' + (0) + ')');
 
+        // Add y-axis.
         var yAxisEle = chart.append('svg')
             .attr('width', margin.right)
             .attr('height', height + margin.top + margin.bottom);
@@ -102,6 +120,7 @@ var ChartView = Backbone.View.extend({
             .attr('transform', 'rotate(-90)')
             .text('Total Calories');
 
+        // Add x-axis.
         var tickWidth = (width + margin.left) / 31;
         var axisWidth = tickWidth * (firstTime - lastTime)/(60*60*24*1000);
         scrollGrp.append('g')
@@ -115,6 +134,7 @@ var ChartView = Backbone.View.extend({
             .attr('dx', '-2em')
             .attr('transform', 'rotate(-70)');
 
+        // Add columns.
         var colWidth = 10;
         scrollGrp.selectAll('rect.chart__col')
             .data(this.collection.models)
