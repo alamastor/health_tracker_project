@@ -2,6 +2,13 @@
  * Backbone view for controlling body of page.
  */
 'use strict';
+require('../../css/style.scss');
+var HistoryView = require('./food_history.js');
+var StatsView = require('./stats.js');
+var SearchView = require('./search.js');
+var AuthView = require('./auth.js');
+var ErrorView = require('./error.js');
+var authContoller = require('../auth.js');
 var ChartView = require('./chart.js');
 var SearchResultsView = require('./search_results.js');
 var AppView = Backbone.View.extend({
@@ -20,6 +27,21 @@ var AppView = Backbone.View.extend({
         this.searchResultsView = new SearchResultsView();
 
         this.listenTo(this.searchResultsView, 'open', this.searchOpened);
+
+        var historyView = new HistoryView();
+        new StatsView();
+        new SearchView();
+        new AuthView();
+        new ErrorView();
+
+        // When auth state changes replace the HistoryView with an new one which will have
+        // the new users' data.
+        Backbone.listenTo(authContoller, 'auth_state_changed', function() {
+            // Call stop listening to allow garbage collection of views, can't call remove
+            // because it will also remove the view.
+            historyView.stopListening();
+            historyView = new HistoryView();
+        });
     },
 
     /**
