@@ -14,6 +14,15 @@ module.exports = function(grunt) {
                 dest: 'dist',
             },
         },
+        // Using grunt pleeease as can't get webpack version to work
+        pleeease: {
+            custom: {
+                files: {'src/css/built_style.css': 'src/css/style.scss'},
+                options: {
+                    sass: true
+                }
+            }
+        },
         webpack: {
             options: webpackConfig,
             build: {
@@ -41,11 +50,12 @@ module.exports = function(grunt) {
             }
         },
     });
+    grunt.loadNpmTasks('grunt-pleeease');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-webpack');
 
-    grunt.registerTask('default', ['clean', 'copy', 'webpack-dev-server:start']);
+    grunt.registerTask('default', ['clean', 'copy', 'pleeease', 'webpack-dev-server:start']);
 
-    grunt.registerTask('build', ['clean', 'copy', 'webpack:build']);
+    grunt.registerTask('build', ['clean', 'copy', 'pleeease', 'webpack:build']);
 };

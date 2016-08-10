@@ -2,7 +2,7 @@
  * Backbone view for controlling body of page.
  */
 'use strict';
-require('../../css/style.scss');
+require('../../css/built_style.css');
 var HistoryView = require('./food_history.js');
 var StatsView = require('./stats.js');
 var SearchView = require('./search.js');

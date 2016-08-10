@@ -5,3 +5,4 @@ node_modules
 .vimrc
 .jshintrc
 .pyc
+built_style.css
