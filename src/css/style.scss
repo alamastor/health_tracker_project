@@ -41,7 +41,7 @@ nav {
 
 .nav__title {
   margin: auto 1em;
-  padding: 0.3em;
+  padding: 0.3em 0.3em 0.3em 1.5em;
   font-size: 2.5em;
   font-weight: bold;
   @media (max-width: $breakpoint) {
@@ -55,6 +55,16 @@ nav {
   border: none;
   margin-left: auto;
   padding: 1em;
+}
+
+.github-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  @media (max-width: $breakpoint) {
+    display: none;
+  }
 }
 
 .nav__border--left {
