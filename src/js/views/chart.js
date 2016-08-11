@@ -28,6 +28,17 @@ var ChartView = Backbone.View.extend({
         this.$container.empty();
         var chart = d3.select(this.$container.get(0));
 
+        // Make responsive.
+        var xAxisInterval;
+        var colWidth;
+        if($(window).width() > 800) {
+            xAxisInterval = 1;
+            colWidth = 10;
+        } else {
+            xAxisInterval = 2;
+            colWidth = 5;
+        }
+
         var margin = {top: 0, right: 65, bottom: 35, left: 0};
         var height = parseFloat(chart.style('height')) - margin.top - margin.bottom;
         var width = parseFloat(chart.style('width')) - margin.left - margin.right;
@@ -63,7 +74,7 @@ var ChartView = Backbone.View.extend({
             .range([xScaleWidth, 0]);
         var xAxis = d3.axisBottom(xScale);
         xAxis.tickFormat(d3.timeFormat('%e-%b'))
-            .ticks(d3.timeDay, 1)
+            .ticks(d3.timeDay, xAxisInterval)
             .tickSize(-height*1.5);
 
         // SVG element containing scrolling elements.
@@ -134,7 +145,6 @@ var ChartView = Backbone.View.extend({
             .attr('transform', 'rotate(-70)');
 
         // Add columns.
-        var colWidth = 10;
         scrollGrp.selectAll('rect.chart__col')
             .data(this.collection.models)
             .enter()

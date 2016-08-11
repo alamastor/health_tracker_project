@@ -9,6 +9,7 @@ $search-height: 6rem;
 
 $breakpoint: 800px;
 $breakpoint-narrow: 530px;
+$breakpoint-short: 400px;
 
 
 body {
@@ -117,6 +118,9 @@ main {
   padding: 0 calc(10% - 1em) 0 10%;
   height: $search-height;
   display: flex;
+  @media (max-height: $breakpoint-short) {
+    display: none;
+  }
 }
 
 .search-form {
@@ -164,6 +168,9 @@ main {
   overflow-y: scroll;
   padding: 0 3em;
   box-sizing: border-box;
+  @media (max-height: $breakpoint-short) {
+    height: 100%;
+  }
 }
 
 .search-header {
