@@ -1,5 +1,5 @@
 /**
- * Backbone view for controlling body of page.
+ * Backbone view for loading sub views and controlling body of page.
  */
 'use strict';
 require('../../css/built_style.css');
