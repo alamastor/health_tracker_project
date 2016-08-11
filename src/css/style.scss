@@ -46,7 +46,8 @@ nav {
   font-weight: bold;
   @media (max-width: $breakpoint) {
     font-size: 1.5em;
-    padding: 0.3em;
+    padding: 0;
+    margin: auto 0.5em;
   }
 }
 .nav__button {
@@ -76,6 +77,9 @@ nav {
   padding: 1em;
   display: flex;
   flex-direction: column;
+  @media (max-width: $breakpoint) {
+    padding: 0.5em;
+  }
 }
 .auth-contaniner {
   display: flex;
