@@ -77,6 +77,7 @@ var DayView = Backbone.View.extend({
         searchController.search(
             this.$searchInput.val()
         ).then(function(results) {
+            errorModel.set({text: ''});
             results.forEach(function(result) {
                 searchResults.create({
                     name: result.fields.item_name,
