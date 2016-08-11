@@ -9,16 +9,18 @@
   <link rel="shortcut icon" type="image/png" href="images/favicon.ico" />
 </head>
 <body>
-  <a href="https://github.com/alamastor/health_tracker_project">
-    <img class="github-link" src="images/github-link.png" alt="Fork me on GitHub">
-  </a>
+  <!-- Container for main body, excluding modals -->
   <div id="container" class="container">
+    <a href="https://github.com/alamastor/health_tracker_project">
+      <img class="github-link" src="images/github-link.png" alt="Fork me on GitHub">
+    </a>
     <nav>
       <h1 class="nav__title">Calorie Tracker</h1>
       <button id="chart-button" class="nav__button nav__border--left">Chart</button>
       <div class="auth nav__border--left" id="auth"></div>
     </nav>
     <main>
+      <!-- Main search element -->
       <div id="search" class="search">
         <form id="search-form" class="search-form" action="#">
           <input id="search-input" class="search-form__input" placeholder="What did you eat?" type="text" autocomplete="off" />
@@ -28,6 +30,7 @@
           <div id="loader" class="loader hidden">Loading...</div>
         </div>
       </div>
+      <!-- List of all days in food history -->
       <section id="food-history" class="food-history">
       </section>
     </main>
@@ -36,8 +39,9 @@
       <div id="stats" class="stats"></div>
     </footer>
   </div>
+  <!-- Search results modal -->
   <section id="search-results" class="search-results hidden">
-    <h2 id="search-header" class="search-header">Search results:</h2>
+    <h2 id="search-header" class="search-results__header">Search results:</h2>
     <ul id="search-results__list" class="search-results__list">
     </ul>
     <a id="api-link" href="http://www.nutritionix.com/api">
@@ -45,6 +49,7 @@
     </a>
     <button id="search-results__cancel" class="search-results__cancel">Cancel</button>
   </section>
+  <!-- Chart modal -->
   <div id="chart" class="chart hidden">
     <button id="chart-cancel" class="chart__cancel">&#x2717;</button>
     <div id="chart-container" class="chart__container"></div>
