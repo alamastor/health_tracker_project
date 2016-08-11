@@ -61,6 +61,7 @@ var ChartView = Backbone.View.extend({
             .domain([yMax * 1.5, 0])
             .range([0, height]);
         var yAxis = d3.axisRight(yScale);
+        yAxis.ticks(5);
 
         // Calculate days range for x-axis.
         var firstTime = new Date(this.collection.first().get('date'));
