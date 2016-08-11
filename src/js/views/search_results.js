@@ -26,7 +26,6 @@ var SearchResultsView = Backbone.View.extend({
      * Add a search result from the collection to the view.
      */
     addSearchResult: function(result) {
-        console.log('add search res');
         var view = new SearchResultView({
             model: result,
         });
