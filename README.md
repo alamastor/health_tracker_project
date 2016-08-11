@@ -34,6 +34,7 @@ This project has the following dependencies:
 - [JQuery](https://jquery.com/)
 - [Underscore JS](http://underscorejs.org/)
 - [Backbonefire](https://github.com/firebase/backbonefire)
+
 ### Dev dependencies
 - [Grunt JS](http://gruntjs.com/)
 - [Webpack](http://webpack.github.io/)
