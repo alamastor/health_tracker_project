@@ -57,7 +57,13 @@ var authController = {
         var provider = new firebase.auth.GoogleAuthProvider();
         // Don't need success/fail handlers, the onAuthStateChanged handler and
         // Google login window will deal with these.
-        this.auth.signInWithPopup(provider);
+        this.auth.signInWithPopup(provider).catch(function(error) {
+            if (error.code === 'auth/cancelled-popup-request') {
+                // User cancelled login.
+            } else {
+                errorModel.set({text: 'Unable to login'});
+            }
+        });
     },
 
     // Login to Firebase anonymously.
