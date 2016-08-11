@@ -61,16 +61,20 @@ var Days = Backbone.Collection.extend({
     addFood: function(food) {
         var date = food.get('date');
         var day;
-        if (this.dateMap.hasOwnProperty(date.toString())) {
-            day = this.dateMap[date.toString()];
-        } else {
-            // Rare case where day does not alreay exists, this should only happen
-            // when day changes while using app.
-            day = this.addDay(date);
+        var today = new Date();
+        // Don't add days in future, so they can be preloaded in db for demo.
+        if (food.get('date') <= today) {
+            if (this.dateMap.hasOwnProperty(date.toString())) {
+                day = this.dateMap[date.toString()];
+            } else {
+                // Rare case where day does not alreay exists, this should only happen
+                // when day changes while using app.
+                day = this.addDay(date);
+            }
+                day.foods.add(food);
+            // Need to trigger manually here so listeners are notified food has changed.
+            this.trigger('update');
         }
-        day.foods.add(food);
-        // Need to trigger manually here so listeners are notified food has changed.
-        this.trigger('update');
     },
 });
 
